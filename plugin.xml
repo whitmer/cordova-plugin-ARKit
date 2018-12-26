@@ -2,7 +2,7 @@
 <plugin id="cordova-plugin-arkit" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>cordova-plugin-arkit</name>
     <js-module name="cordova-plugin-arkit" src="www/cordova-plugin-arkit.js">
-        <clobbers target="cordova.plugins.cordova-plugin-arkit"/>
+        <clobbers target="cordova.plugins.arkit"/>
     </js-module>
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
