@@ -35,29 +35,72 @@ var app = {
         initThreeJs();
         animate();
 
-      
+        var updateCamera = throttle(function (str) {
+                                    const arr = str.split(',');
+                                    let [posX, posY, posZ] = arr.slice(0,3);
+                                    
+                                    
+                                    const posMultipl = 10;
+                                    posX *= posMultipl; posY *= posMultipl ; posZ*= posMultipl;
+                                    camera.position.set(posX, posY, posZ);
+                                    
+                                    const [quatX, quatY, quatZ, quatW] = arr.slice(3);
+                                    console.log(quatX, quatY, quatZ, quatW);
+                                    camera.quaternion.set(+quatX, +quatY, +quatZ, +quatW);
+                             
+       }, 60);
         console.info('call plugin');
         cordova.plugins.arkit.coolMethod('', str => {
-          const arr = str.split(',');
-          let [posX, posY, posZ] = arr.slice(0,3);
-          camera.position.set(posX, posY, posZ);
-
-          const [quatX, quatY, quatZ, quatW] = arr.slice(3);
-          camera.quaternion.set(quatX, quatY, quatZ, quatW);
+                                         updateCamera(str);
         }, console.error)
     }
 };
 
 app.initialize();
 
+function throttle(func, ms) {
+    
+    var isThrottled = false,
+    savedArgs,
+    savedThis;
+    
+    function wrapper() {
+        
+        if (isThrottled) { // (2)
+            savedArgs = arguments;
+            savedThis = this;
+            return;
+        }
+        
+        func.apply(this, arguments); // (1)
+        
+        isThrottled = true;
+        
+        setTimeout(function() {
+                   isThrottled = false; // (3)
+                   if (savedArgs) {
+                   wrapper.apply(savedThis, savedArgs);
+                   savedArgs = savedThis = null;
+                   }
+                   }, ms);
+    }
+    
+    return wrapper;
+}
+
+
+
 function initThreeJs() {
   camera = new THREE.PerspectiveCamera( 70, container.clientWidth / container.clientHeight, 1, 1000 );
-  camera.position.z = 400;
 
-	scene = new THREE.Scene();
-	var geometry = new THREE.BoxBufferGeometry( 200, 200, 200 );
+    scene = new THREE.Scene();
+    geoemtrySize = 0.3;
+	var geometry = new THREE.BoxBufferGeometry( geoemtrySize, geoemtrySize, geoemtrySize );
 	var material = new THREE.MeshBasicMaterial({color: new THREE.Color( 000000 )});
 	mesh = new THREE.Mesh( geometry, material );
+    
+    mesh.position.z = -5;
+    
 	scene.add( mesh );
   renderer = new THREE.WebGLRenderer( { alpha: true, antialiasing: true } );
   renderer.setPixelRatio( window.devicePixelRatio );
