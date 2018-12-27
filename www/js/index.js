@@ -35,14 +35,16 @@ var app = {
         initThreeJs();
         animate();
 
-        setInterval(() => {
-          console.info('call plugin');
-          cordova.plugins.arkit.coolMethod('', arr => {
-            console.log('Arkit matrix', arr);
-            const arkitMatrix = arr.split(',');
-            camera.applyMatrix(new THREE.Matrix4().set(...arkitMatrix))
-          }, console.error)
-        }, 3000)
+      
+        console.info('call plugin');
+        cordova.plugins.arkit.coolMethod('', str => {
+          const arr = str.split(',');
+          let [posX, posY, posZ] = arr.slice(0,3);
+          camera.position.set(posX, posY, posZ);
+
+          const [quatX, quatY, quatZ, quatW] = arr.slice(3);
+          camera.quaternion.set(quatX, quatY, quatZ, quatW);
+        }, console.error)
     }
 };
 
@@ -51,15 +53,17 @@ app.initialize();
 function initThreeJs() {
   camera = new THREE.PerspectiveCamera( 70, container.clientWidth / container.clientHeight, 1, 1000 );
   camera.position.z = 400;
+
 	scene = new THREE.Scene();
 	var geometry = new THREE.BoxBufferGeometry( 200, 200, 200 );
-	var material = new THREE.MeshBasicMaterial();
+	var material = new THREE.MeshBasicMaterial({color: new THREE.Color( 000000 )});
 	mesh = new THREE.Mesh( geometry, material );
 	scene.add( mesh );
-  renderer = new THREE.WebGLRenderer( { antialias: true } );
+  renderer = new THREE.WebGLRenderer( { alpha: true, antialiasing: true } );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setClearColor( 0x000000, 0 );
   window.addEventListener( 'resize', onWindowResize, false );
+
   
   renderer.setSize( container.clientWidth, container.clientHeight );
 	container.appendChild( renderer.domElement );

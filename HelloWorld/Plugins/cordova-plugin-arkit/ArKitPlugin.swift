@@ -24,7 +24,7 @@ import Foundation
     
     func sendMatrix() {
         guard let result = CDVPluginResult(status: CDVCommandStatus_OK,
-                                           messageAs: "1,0,0,40,0,1,0,0,0,0,1,0,0,0,0,1") else { return }
+                                           messageAs: "20,0,400,0,0,0,0") else { return }
         result.setKeepCallbackAs(true)
         commandDelegate!.send(result,
                               callbackId: callbackId)
