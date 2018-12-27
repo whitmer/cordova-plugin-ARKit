@@ -8,8 +8,13 @@
 import ARKit
 import SceneKit
 import UIKit
+import simd
 
-class ARViewController: UIViewController, ARSCNViewDelegate {
+@objc protocol ARViewControllerDelegate: class {
+    func updateCameraTransform(transfrom: simd_float4x4)
+}
+
+class ARViewController: UIViewController {
     
     // MARK: - UI Elements
     
@@ -31,6 +36,9 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     
     /// Prevents restarting the session while a restart is in progress.
     var isRestartAvailable = true
+    
+    /// Delegate
+    var delegate: ARViewControllerDelegate?
     
     // MARK: - View Controller Life Cycle
     

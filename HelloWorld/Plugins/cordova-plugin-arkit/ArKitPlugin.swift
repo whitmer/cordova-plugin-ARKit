@@ -5,28 +5,42 @@ import Foundation
     // MARK: - Properties
     
     var callbackId: String!
+    var arViewController: ARViewController!
     
     // MARK: - Life Cycle
     
     override func pluginInitialize() {
-        print("HI!")
-        
-        self.webView.backgroundColor = .clear
-        self.webView.isOpaque = false
+        instantiateARViewController()
+        setupWebView()
+        setupARView()
+    }
+    
+    // MARK: - Setup Methods
+    
+    func instantiateARViewController() {
+        let storyboard = UIStoryboard(name: "Main",
+                                      bundle: nil)
+        guard let arViewController = storyboard.instantiateViewController(withIdentifier: "ARViewController") as? ARViewController else {
+            fatalError("ARViewController is not set in storyboard")
+        }
+        self.arViewController = arViewController
+        self.arViewController.delegate = self
+    }
+    
+    func setupWebView() {
+        webView.backgroundColor = .clear
+        webView.isOpaque = false
+    }
+    
+    func setupARView() {
+        guard let superview = webView.superview else { return }
+        superview.insertSubview(arViewController.view,
+                                belowSubview: webView)
     }
     
     // MARK: - Sending Data Methods
     
     @objc func coolMethod(_ command: CDVInvokedUrlCommand) {
         callbackId = command.callbackId
-        sendMatrix()
-    }
-    
-    func sendMatrix() {
-        guard let result = CDVPluginResult(status: CDVCommandStatus_OK,
-                                           messageAs: "20,0,400,0,0,0,0") else { return }
-        result.setKeepCallbackAs(true)
-        commandDelegate!.send(result,
-                              callbackId: callbackId)
     }
 }

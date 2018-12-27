@@ -15,6 +15,8 @@
 		18ABF9C921D4D2A1004624ED /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ABF9C821D4D2A1004624ED /* StatusViewController.swift */; };
 		18ABF9CB21D4D2DA004624ED /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ABF9CA21D4D2DA004624ED /* ARViewController.swift */; };
 		18ABF9CD21D4D2F5004624ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18ABF9CC21D4D2F5004624ED /* Main.storyboard */; };
+		18ABF9D721D514FD004624ED /* ARViewController+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ABF9D621D514FD004624ED /* ARViewController+ARSCNViewDelegate.swift */; };
+		18ABF9DC21D515AD004624ED /* ArKitPlugin+ARViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ABF9DB21D515AD004624ED /* ArKitPlugin+ARViewControllerDelegate.swift */; };
 		19EC5335EB2A473B85255713 /* GCDWebServerDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E3058BB0B4A94909F9759 /* GCDWebServerDataResponse.m */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
@@ -75,6 +77,8 @@
 		18ABF9C821D4D2A1004624ED /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 		18ABF9CA21D4D2DA004624ED /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
 		18ABF9CC21D4D2F5004624ED /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		18ABF9D621D514FD004624ED /* ARViewController+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARViewController+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
+		18ABF9DB21D515AD004624ED /* ArKitPlugin+ARViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArKitPlugin+ARViewControllerDelegate.swift"; sourceTree = "<group>"; };
 		1971BB85EE26465186FD556E /* GCDWebServerConnection.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = GCDWebServerConnection.h; path = "cordova-plugin-ionic-webview/GCDWebServerConnection.h"; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -165,6 +169,7 @@
 			children = (
 				18ABF9CA21D4D2DA004624ED /* ARViewController.swift */,
 				18ABF9C621D4D295004624ED /* ARViewController+ARSessionDelegate.swift */,
+				18ABF9D621D514FD004624ED /* ARViewController+ARSCNViewDelegate.swift */,
 			);
 			path = ARViewController;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				829C7B5562BA408BA81A1C87 /* ArKitPlugin.swift */,
+				18ABF9DB21D515AD004624ED /* ArKitPlugin+ARViewControllerDelegate.swift */,
 				F6C23D72046C4B57984D5379 /* CDVWKProcessPoolFactory.h */,
 				FEAF933E46C84B6096F2160C /* CDVWKProcessPoolFactory.m */,
 				CD923DF44D824153942E19CC /* CDVWKWebViewEngine.h */,
@@ -429,8 +435,10 @@
 				D11641FCA4AD459AB2BE6284 /* CDVWKProcessPoolFactory.m in Sources */,
 				D667785FA4D94CAD80F915F8 /* IONAssetHandler.m in Sources */,
 				132F49D1FB9C42189C4C3C6F /* GCDWebServer.m in Sources */,
+				18ABF9DC21D515AD004624ED /* ArKitPlugin+ARViewControllerDelegate.swift in Sources */,
 				32B94146A220469DB5256A45 /* GCDWebServerConnection.m in Sources */,
 				7904CD1DDE0E4064B0538F73 /* GCDWebServerFunctions.m in Sources */,
+				18ABF9D721D514FD004624ED /* ARViewController+ARSCNViewDelegate.swift in Sources */,
 				6F8258D0C7964645817B4558 /* GCDWebServerRequest.m in Sources */,
 				45AC195E3C5B4E23974A5A0D /* GCDWebServerResponse.m in Sources */,
 				4F82A76190D84063903DB404 /* GCDWebServerDataRequest.m in Sources */,
