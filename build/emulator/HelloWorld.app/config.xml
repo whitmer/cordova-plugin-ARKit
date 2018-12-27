@@ -22,6 +22,12 @@
     <feature name="ArKitPlugin">
         <param name="ios-package" value="HWPArKitPlugin" />
     </feature>
+    <allow-navigation href="http://localhost:8080/*" />
+    <allow-navigation href="http://127.0.0.1:8080/*" />
+    <allow-navigation href="ionic://*" />
+    <feature name="IonicWebView">
+        <param name="ios-package" value="CDVWKWebViewEngine" />
+    </feature>
     <name>HelloWorld</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -52,4 +58,5 @@
     <preference name="PageLength" value="0" />
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
+    <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
 </widget>
