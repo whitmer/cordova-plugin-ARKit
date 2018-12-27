@@ -1,0 +1,47 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {
+      "config.xml": {
+        "parents": {
+          "/*": [
+            {
+              "xml": "<feature name=\"ArKitPlugin\"><param name=\"ios-package\" value=\"HWPArKitPlugin\" /></feature>",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.example.hello"
+    },
+    "cordova-plugin-add-swift-support": {
+      "PACKAGE_NAME": "com.example.hello"
+    },
+    "cordova-plugin-arkit": {
+      "PACKAGE_NAME": "com.example.hello"
+    }
+  },
+  "dependent_plugins": {},
+  "modules": [
+    {
+      "id": "cordova-plugin-arkit.cordova-plugin-arkit",
+      "file": "plugins/cordova-plugin-arkit/www/cordova-plugin-arkit.js",
+      "pluginId": "cordova-plugin-arkit",
+      "clobbers": [
+        "cordova.plugins.arkit"
+      ]
+    }
+  ],
+  "plugin_metadata": {
+    "cordova-plugin-whitelist": "1.3.3",
+    "cordova-plugin-add-swift-support": "1.7.2",
+    "cordova-plugin-arkit": "0.0.1"
+  }
+}
