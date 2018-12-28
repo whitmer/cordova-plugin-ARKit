@@ -41,17 +41,25 @@ import Foundation
 
     /// Add AR View below WebView and start AR session
     @objc func addARView(_ command: CDVInvokedUrlCommand) {
-        instantiateARViewController()
-        
-        guard let superview = webView.superview else { return }
-        superview.insertSubview(arViewController.view,
-                                belowSubview: webView)
+        DispatchQueue.global(qos: .utility).async {
+            self.instantiateARViewController()
+            
+            DispatchQueue.main.async {
+                guard let superview = self.webView.superview else { return }
+                superview.insertSubview(self.arViewController.view,
+                                        belowSubview: self.webView)
+            }
+            
+        }
     }
     
     /// Stop AR session and remove AR View the from veiw stack
     @objc func removeARView(_ command: CDVInvokedUrlCommand) {
         arViewController.view.removeFromSuperview()
         self.arViewController = nil
+    }
+    
+    @objc func reloadSession(_ command: CDVInvokedUrlCommand) {
     }
     
 }
