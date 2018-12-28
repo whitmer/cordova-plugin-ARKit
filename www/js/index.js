@@ -20,6 +20,32 @@ var camera, scene, renderer;
 var mesh;
 const container = document.getElementById('modelContainer');
 
+function updateCamera(str) {
+  const arr = str.split(',').map(number => parseFloat(number));
+
+  let [posX, posY, posZ] = arr.slice(0,3);
+  const posFactor = 18;
+  posX *= posFactor; posY *= posFactor; posZ*= posFactor;
+  camera.position.set(posX, posY, posZ);
+
+  const [quatX, quatY, quatZ, quatW] = arr.slice(3);
+  camera.quaternion.set(quatX, quatY, quatZ, quatW);
+}
+
+function startAr() {
+  cordova.plugins.arkit.addARView();
+}
+
+function removeAr() {
+  cordova.plugins.arkit.removeARView();
+}
+
+function reloadAr() {
+
+}
+
+var updateCameraWithTrottle = throttle(updateCamera, 16);
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -31,75 +57,55 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
-        console.log('event');
-        initThreeJs();
-        animate();
+      initThreeJs();
+      animate();
 
-        var updateCamera = throttle(function (str) {
-                                    const arr = str.split(',');
-                                    let [posX, posY, posZ] = arr.slice(0,3);
-                                    
-                                    
-                                    const posMultipl = 10;
-                                    posX *= posMultipl; posY *= posMultipl ; posZ*= posMultipl;
-                                    camera.position.set(posX, posY, posZ);
-                                    
-                                    const [quatX, quatY, quatZ, quatW] = arr.slice(3);
-                                    console.log(quatX, quatY, quatZ, quatW);
-                                    camera.quaternion.set(+quatX, +quatY, +quatZ, +quatW);
-                             
-       }, 60);
-        console.info('call plugin');
-        cordova.plugins.arkit.coolMethod('', str => {
-                                         updateCamera(str);
-        }, console.error)
-    }
+      //Set callback function
+      cordova.plugins.arkit.coolMethod('', str => updateCameraWithTrottle(str), console.error);
+
+      document.getElementById('startBtn').addEventListener('click', startAr);
+      document.getElementById('removeBtn').addEventListener('click', removeAr);
+      document.getElementById('reloadBtn').addEventListener('click', reloadAr);
+  }
 };
 
 app.initialize();
 
 function throttle(func, ms) {
+  var isThrottled = false, savedArgs, savedThis;
     
-    var isThrottled = false,
-    savedArgs,
-    savedThis;
-    
-    function wrapper() {
-        
-        if (isThrottled) { // (2)
-            savedArgs = arguments;
-            savedThis = this;
-            return;
-        }
-        
-        func.apply(this, arguments); // (1)
-        
-        isThrottled = true;
-        
-        setTimeout(function() {
-                   isThrottled = false; // (3)
-                   if (savedArgs) {
-                   wrapper.apply(savedThis, savedArgs);
-                   savedArgs = savedThis = null;
-                   }
-                   }, ms);
+  function wrapper() {  
+    if (isThrottled) { // (2)
+      savedArgs = arguments;
+      savedThis = this;
+      return;
     }
     
-    return wrapper;
+    func.apply(this, arguments); // (1)
+    isThrottled = true;
+        
+    setTimeout(function() {
+      isThrottled = false; // (3)
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs);
+        savedArgs = savedThis = null;
+      }
+    }, ms);
+  }
+    
+  return wrapper;
 }
-
-
 
 function initThreeJs() {
   camera = new THREE.PerspectiveCamera( 70, container.clientWidth / container.clientHeight, 1, 1000 );
 
-    scene = new THREE.Scene();
-    geoemtrySize = 0.3;
+  scene = new THREE.Scene();
+  geoemtrySize = 0.3;
 	var geometry = new THREE.BoxBufferGeometry( geoemtrySize, geoemtrySize, geoemtrySize );
 	var material = new THREE.MeshBasicMaterial({color: new THREE.Color( 000000 )});
 	mesh = new THREE.Mesh( geometry, material );
     
-    mesh.position.z = -5;
+  mesh.position.z = -5;
     
 	scene.add( mesh );
   renderer = new THREE.WebGLRenderer( { alpha: true, antialiasing: true } );
@@ -107,7 +113,6 @@ function initThreeJs() {
   renderer.setClearColor( 0x000000, 0 );
   window.addEventListener( 'resize', onWindowResize, false );
 
-  
   renderer.setSize( container.clientWidth, container.clientHeight );
 	container.appendChild( renderer.domElement );
 }
@@ -118,14 +123,7 @@ function onWindowResize() {
   renderer.setSize( container.clientWidth, container.clientHeight );
 }
 
-function onDocumentMouseMove( event ) {
-  mouseX = ( event.clientX - windowHalfX );
-  mouseY = ( event.clientY - windowHalfY );
-}
-
 function animate() {
   requestAnimationFrame( animate );
-  // mesh.rotation.x += 0.005;
-  // mesh.rotation.y += 0.01;
   renderer.render( scene, camera );
 }

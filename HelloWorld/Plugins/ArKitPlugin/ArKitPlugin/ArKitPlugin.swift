@@ -15,7 +15,6 @@ import Foundation
     /// Plugin init mehtod
     override func pluginInitialize() {
         setupWebView()
-        addARView()
     }
     
     // MARK: - Setup Methods
@@ -24,7 +23,7 @@ import Foundation
     func setupWebView() {
         webView.backgroundColor = .clear
         webView.isOpaque = false
-        webView.isUserInteractionEnabled = false
+//        webView.isUserInteractionEnabled = false
     }
     
     // MARK: - ARView Life Cycle Management
@@ -39,9 +38,9 @@ import Foundation
         self.arViewController = arViewController
         self.arViewController.delegate = self
     }
-    
+
     /// Add AR View below WebView and start AR session
-    func addARView() {
+    @objc func addARView(_ command: CDVInvokedUrlCommand) {
         instantiateARViewController()
         
         guard let superview = webView.superview else { return }
@@ -50,7 +49,7 @@ import Foundation
     }
     
     /// Stop AR session and remove AR View the from veiw stack
-    func removeARView() {
+    @objc func removeARView(_ command: CDVInvokedUrlCommand) {
         arViewController.view.removeFromSuperview()
         self.arViewController = nil
     }
