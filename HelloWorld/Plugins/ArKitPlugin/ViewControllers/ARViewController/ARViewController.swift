@@ -79,7 +79,8 @@ class ARViewController: UIViewController {
         let configuration = ARWorldTrackingConfiguration()
         
         // Run the view's session
-        sceneView.session.run(configuration)
+        sceneView.session.run(configuration,
+                              options: [.resetTracking, .removeExistingAnchors])
     }
 }
 

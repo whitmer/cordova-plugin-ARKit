@@ -108,7 +108,7 @@
 		6C6E7C96A1804C2DAD3A7C7C /* IONAssetHandler.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = IONAssetHandler.h; path = "cordova-plugin-ionic-webview/IONAssetHandler.h"; sourceTree = "<group>"; };
 		6DB8722F9DB44306AF9F31A1 /* GCDWebServerDataRequest.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = GCDWebServerDataRequest.m; path = "cordova-plugin-ionic-webview/GCDWebServerDataRequest.m"; sourceTree = "<group>"; };
 		7C7587B6F65E4D0580BDF1EB /* GCDWebServerErrorResponse.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = GCDWebServerErrorResponse.h; path = "cordova-plugin-ionic-webview/GCDWebServerErrorResponse.h"; sourceTree = "<group>"; };
-		829C7B5562BA408BA81A1C87 /* ArKitPlugin.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = ArKitPlugin.swift; path = "cordova-plugin-arkit/ArKitPlugin.swift"; sourceTree = "<group>"; };
+		829C7B5562BA408BA81A1C87 /* ArKitPlugin.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; path = ArKitPlugin.swift; sourceTree = "<group>"; };
 		8721EFA5548544B6BBC365F9 /* GCDWebServerFileResponse.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = GCDWebServerFileResponse.h; path = "cordova-plugin-ionic-webview/GCDWebServerFileResponse.h"; sourceTree = "<group>"; };
 		8C9E3058BB0B4A94909F9759 /* GCDWebServerDataResponse.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = GCDWebServerDataResponse.m; path = "cordova-plugin-ionic-webview/GCDWebServerDataResponse.m"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* HelloWorld-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "HelloWorld-Info.plist"; path = "HelloWorld/HelloWorld-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = SOURCE_ROOT; };
@@ -156,9 +156,6 @@
 				302D95F014D2391D003F00A1 /* MainViewController.xib */,
 				1D3623240D0F684500981E51 /* AppDelegate.h */,
 				1D3623250D0F684500981E51 /* AppDelegate.m */,
-				18ABF9CE21D4D35E004624ED /* ARViewController */,
-				18ABF9CF21D4D368004624ED /* StatusViewController */,
-				18ABF9CC21D4D2F5004624ED /* Main.storyboard */,
 			);
 			name = Classes;
 			path = HelloWorld/Classes;
@@ -180,6 +177,42 @@
 				18ABF9C821D4D2A1004624ED /* StatusViewController.swift */,
 			);
 			path = StatusViewController;
+			sourceTree = "<group>";
+		};
+		18CFFAA921D60A78000D9311 /* ArKitPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				18CFFAAB21D60A92000D9311 /* ArKitPlugin */,
+				18CFFAAC21D60A9F000D9311 /* ViewControllers */,
+				18CFFAAA21D60A85000D9311 /* Resources */,
+			);
+			path = ArKitPlugin;
+			sourceTree = "<group>";
+		};
+		18CFFAAA21D60A85000D9311 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				18ABF9CC21D4D2F5004624ED /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		18CFFAAB21D60A92000D9311 /* ArKitPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				829C7B5562BA408BA81A1C87 /* ArKitPlugin.swift */,
+				18ABF9DB21D515AD004624ED /* ArKitPlugin+ARViewControllerDelegate.swift */,
+			);
+			path = ArKitPlugin;
+			sourceTree = "<group>";
+		};
+		18CFFAAC21D60A9F000D9311 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				18ABF9CE21D4D35E004624ED /* ARViewController */,
+				18ABF9CF21D4D368004624ED /* StatusViewController */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
@@ -261,8 +294,7 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				829C7B5562BA408BA81A1C87 /* ArKitPlugin.swift */,
-				18ABF9DB21D515AD004624ED /* ArKitPlugin+ARViewControllerDelegate.swift */,
+				18CFFAA921D60A78000D9311 /* ArKitPlugin */,
 				F6C23D72046C4B57984D5379 /* CDVWKProcessPoolFactory.h */,
 				FEAF933E46C84B6096F2160C /* CDVWKProcessPoolFactory.m */,
 				CD923DF44D824153942E19CC /* CDVWKWebViewEngine.h */,

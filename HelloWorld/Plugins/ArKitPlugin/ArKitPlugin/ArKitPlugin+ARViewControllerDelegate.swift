@@ -7,13 +7,21 @@
 
 import simd
 
+// MARK: - Sending Data Methods
+
 extension ArKitPlugin: ARViewControllerDelegate {
     
+    /// Update virtual camera's transform matrix
+    ///
+    /// - Parameter transfrom: float4x4 transform matrix
     func updateCameraTransform(transfrom: simd_float4x4) {
-        sendMatrix(transfrom: transfrom)
+        sendPositionAndQuaternion(transfrom: transfrom)
     }
     
-    func sendMatrix(transfrom: simd_float4x4) {
+    /// Send virtual camera's position and quaternion to JS
+    ///
+    /// - Parameter transfrom: float4x4 transform matrix
+    func sendPositionAndQuaternion(transfrom: simd_float4x4) {
         let cameraPosition = float3(transfrom.columns.3.x,
                                     transfrom.columns.3.y,
                                     transfrom.columns.3.z)
@@ -34,6 +42,13 @@ extension ArKitPlugin: ARViewControllerDelegate {
         result.setKeepCallbackAs(true)
         commandDelegate!.send(result,
                               callbackId: callbackId)
+    }
+    
+    /// Save Callback ID
+    ///
+    /// - Parameter command: cordova invoked URL command
+    @objc func coolMethod(_ command: CDVInvokedUrlCommand) {
+        callbackId = command.callbackId
     }
 
 }

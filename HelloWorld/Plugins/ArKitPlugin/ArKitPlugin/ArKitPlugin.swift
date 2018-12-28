@@ -4,19 +4,32 @@ import Foundation
 
     // MARK: - Properties
     
+    /// Callback ID
     var callbackId: String!
+    
+    /// ARViewController
     var arViewController: ARViewController!
     
     // MARK: - Life Cycle
     
+    /// Plugin init mehtod
     override func pluginInitialize() {
-        instantiateARViewController()
         setupWebView()
-        setupARView()
+        addARView()
     }
     
     // MARK: - Setup Methods
     
+    /// Make WebView transparent and non-clickable
+    func setupWebView() {
+        webView.backgroundColor = .clear
+        webView.isOpaque = false
+        webView.isUserInteractionEnabled = false
+    }
+    
+    // MARK: - ARView Life Cycle Management
+    
+    /// Init ARViewController from the Main storyboard
     func instantiateARViewController() {
         let storyboard = UIStoryboard(name: "Main",
                                       bundle: nil)
@@ -27,20 +40,19 @@ import Foundation
         self.arViewController.delegate = self
     }
     
-    func setupWebView() {
-        webView.backgroundColor = .clear
-        webView.isOpaque = false
-    }
-    
-    func setupARView() {
+    /// Add AR View below WebView and start AR session
+    func addARView() {
+        instantiateARViewController()
+        
         guard let superview = webView.superview else { return }
         superview.insertSubview(arViewController.view,
                                 belowSubview: webView)
     }
     
-    // MARK: - Sending Data Methods
-    
-    @objc func coolMethod(_ command: CDVInvokedUrlCommand) {
-        callbackId = command.callbackId
+    /// Stop AR session and remove AR View the from veiw stack
+    func removeARView() {
+        arViewController.view.removeFromSuperview()
+        self.arViewController = nil
     }
+    
 }
