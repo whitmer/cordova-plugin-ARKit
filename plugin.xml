@@ -1,10 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugin id="cordova-plugin-arkit" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>cordova-plugin-arkit</name>
+    
     <js-module name="cordova-plugin-arkit" src="www/cordova-plugin-arkit.js">
         <clobbers target="cordova.plugins.arkit"/>
     </js-module>
+
     <platform name="ios">
+        <preference name="CAMERA_USAGE_DESCRIPTION" default="Used by ARKit" />
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+            <string>$CAMERA_USAGE_DESCRIPTION</string>
+        </config-file>
+
         <config-file target="config.xml" parent="/*">
             <feature name="ArKitPlugin">
                 <param name="ios-package" value="HWPArKitPlugin"/>
@@ -12,6 +19,18 @@
         </config-file>
 
         <source-file src="src/ios/ArKitPlugin.swift"/>
+        <source-file src="src/ios/ArKitPlugin+ARViewControllerDelegate.swift"/>
+
+        <!-- ARViewController -->
+        <source-file src="src/ios/ViewControllers/ARViewController/ARViewController.swift"/>
+        <source-file src="src/ios/ViewControllers/ARViewController/ARViewController+ARSCNViewDelegate.swift"/>
+        <source-file src="src/ios/ViewControllers/ARViewController/ARViewController+ARSessionDelegate.swift"/>
+
+        <!-- StatusViewController -->
+        <source-file src="src/ios/ViewControllers/StatusViewController/StatusViewController.swift"/>
+
+        <!-- Resources -->
+        <resource-file src="src/ios/Resources/Main.storyboard" />
 
         <dependency id="cordova-plugin-add-swift-support" version="~1.7" />
     </platform>
