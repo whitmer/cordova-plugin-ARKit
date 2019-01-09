@@ -62,4 +62,10 @@ import Foundation
     @objc func reloadSession(_ command: CDVInvokedUrlCommand) {
     }
     
+    @objc func qrScanner(_ command: CDVInvokedUrlCommand) {
+        for str in command.arguments {
+            print(str);
+        }
+    }
+    
 }

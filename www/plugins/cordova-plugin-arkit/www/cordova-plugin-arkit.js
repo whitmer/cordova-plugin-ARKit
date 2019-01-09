@@ -14,4 +14,8 @@ cordova.define("cordova-plugin-arkit.cordova-plugin-arkit", function(require, ex
     exports.removeARView = function() {
         exec(undefined, undefined, 'ArKitPlugin', 'removeARView');
     };
+               
+    exports.qrScaner = function(qrData) {
+        exec(undefined, undefined, 'ArKitPlugin', 'qrScanner', [qrData]);
+    };
 });

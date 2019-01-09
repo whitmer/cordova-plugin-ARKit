@@ -44,6 +44,10 @@ function reloadAr() {
 
 }
 
+function scanQR() {
+  cordova.plugins.arkit.qrScaner("21");
+}
+
 var updateCameraWithTrottle = throttle(updateCamera, 16);
 
 var app = {
@@ -66,6 +70,7 @@ var app = {
       document.getElementById('startBtn').addEventListener('click', startAr);
       document.getElementById('removeBtn').addEventListener('click', removeAr);
       document.getElementById('reloadBtn').addEventListener('click', reloadAr);
+      document.getElementById('scanQR').addEventListener('click', scanQR);
   }
 };
 
