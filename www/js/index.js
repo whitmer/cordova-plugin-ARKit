@@ -1,54 +1,41 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+var qrContent = ['MSFT000001'];
 var camera, scene, renderer;
 var mesh;
 const container = document.getElementById('modelContainer');
 
 function updateCamera(str) {
-  const arr = str.split(',').map(number => parseFloat(number));
+  console.log(str);
+  // const arr = str.split(',').map(number => parseFloat(number));
 
-  let [posX, posY, posZ] = arr.slice(0,3);
-  const posFactor = 18;
-  posX *= posFactor; posY *= posFactor; posZ*= posFactor;
-  camera.position.set(posX, posY, posZ);
+  // let [posX, posY, posZ] = arr.slice(0,3);
+  // const posFactor = 18;
+  // posX *= posFactor; posY *= posFactor; posZ*= posFactor;
+  // camera.position.set(posX, posY, posZ);
 
-  const [quatX, quatY, quatZ, quatW] = arr.slice(3);
-  camera.quaternion.set(quatX, quatY, quatZ, quatW);
+  // const [quatX, quatY, quatZ, quatW] = arr.slice(3);
+  // camera.quaternion.set(quatX, quatY, quatZ, quatW);
 }
 
-function startAr() {
+function addARView() {
   cordova.plugins.arkit.addARView();
 }
 
-function removeAr() {
+function removeArView() {
   cordova.plugins.arkit.removeARView();
 }
 
 function reloadAr() {
-
 }
 
-function scanQR() {
-  cordova.plugins.arkit.qrScaner("MSFT000001");
+function qrRecongnition() {
+  cordova.plugins.arkit.startARSessionWithQRRecognition(qrContent);
 }
 
-var updateCameraWithTrottle = throttle(updateCamera, 16);
+function startSimpleAr() {
+  cordova.plugins.arkit.startArSession();
+}
+
+var updateCameraWithTrottle = throttle(updateCamera, 1000);
 
 var app = {
     // Application Constructor
@@ -56,21 +43,18 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
 
-    // deviceready Event Handler
-    //
-    // Bind any cordova events here. Common events are:
-    // 'pause', 'resume', etc.
     onDeviceReady: function() {
       initThreeJs();
       animate();
 
       //Set callback function
-      cordova.plugins.arkit.coolMethod('', str => updateCameraWithTrottle(str), console.error);
+      cordova.plugins.arkit.setListenerForArChanges('', str => updateCameraWithTrottle(str), console.error);
 
-      document.getElementById('startBtn').addEventListener('click', startAr);
-      document.getElementById('removeBtn').addEventListener('click', removeAr);
-      document.getElementById('reloadBtn').addEventListener('click', reloadAr);
-      document.getElementById('scanQR').addEventListener('click', scanQR);
+      document.getElementById('addARView').addEventListener('click', addARView);
+      document.getElementById('removeArView').addEventListener('click', removeArView);
+      // document.getElementById('reloadBtn').addEventListener('click', reloadAr);
+      document.getElementById('startSimpleAr').addEventListener('click', startSimpleAr);
+      document.getElementById('qrRecongnition').addEventListener('click', qrRecongnition);
   }
 };
 
@@ -80,17 +64,17 @@ function throttle(func, ms) {
   var isThrottled = false, savedArgs, savedThis;
     
   function wrapper() {  
-    if (isThrottled) { // (2)
+    if (isThrottled) {
       savedArgs = arguments;
       savedThis = this;
       return;
     }
     
-    func.apply(this, arguments); // (1)
+    func.apply(this, arguments);
     isThrottled = true;
         
     setTimeout(function() {
-      isThrottled = false; // (3)
+      isThrottled = false;
       if (savedArgs) {
         wrapper.apply(savedThis, savedArgs);
         savedArgs = savedThis = null;

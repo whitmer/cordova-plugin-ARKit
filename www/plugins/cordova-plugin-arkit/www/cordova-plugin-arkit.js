@@ -1,7 +1,7 @@
 cordova.define("cordova-plugin-arkit.cordova-plugin-arkit", function(require, exports, module) {
     var exec = require('cordova/exec');
 
-    exports.coolMethod = function (arg0, success, error) {
+    exports.setListenerForArChanges = function (arg0, success, error) {
         exec(success, error, 'ArKitPlugin', 'coolMethod', [arg0]);
     };
     
@@ -15,7 +15,11 @@ cordova.define("cordova-plugin-arkit.cordova-plugin-arkit", function(require, ex
         exec(undefined, undefined, 'ArKitPlugin', 'removeARView');
     };
                
-    exports.qrScaner = function(qrData) {
-        exec(undefined, undefined, 'ArKitPlugin', 'qrScanner', [qrData]);
+    exports.startARSessionWithQRRecognition = function(qrDataArr) {
+        exec(undefined, undefined, 'ArKitPlugin', 'startARSessionWithQRRecognition', qrDataArr);
+    };
+
+    exports.startArSession = function() {
+        exec(undefined, undefined, 'ArKitPlugin', 'startARSessionWithoutQRRecognition');
     };
 });
