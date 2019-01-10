@@ -11,18 +11,22 @@ extension ARViewController: ARSessionDelegate {
     
     // MARK: - ARSessionDelegate
     
-    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
-        statusViewController.showTrackingQualityInfo(for: camera.trackingState, autoHide: true)
+    func session(_ session: ARSession,
+                 cameraDidChangeTrackingState camera: ARCamera) {
+        statusViewController.showTrackingQualityInfo(for: camera.trackingState,
+                                                     autoHide: true)
         
         switch camera.trackingState {
         case .notAvailable, .limited:
-            statusViewController.escalateFeedback(for: camera.trackingState, inSeconds: 3.0)
+            statusViewController.escalateFeedback(for: camera.trackingState,
+                                                  inSeconds: 3.0)
         case .normal:
             statusViewController.cancelScheduledMessage(for: .trackingStateEscalation)
         }
     }
     
-    func session(_ session: ARSession, didFailWithError error: Error) {
+    func session(_ session: ARSession,
+                 didFailWithError error: Error) {
         guard error is ARError else { return }
         
         let errorWithInfo = error as NSError
@@ -36,7 +40,8 @@ extension ARViewController: ARSessionDelegate {
         let errorMessage = messages.compactMap({ $0 }).joined(separator: "\n")
         
         DispatchQueue.main.async {
-            self.displayErrorMessage(title: "The AR session failed.", message: errorMessage)
+            self.displayErrorMessage(title: "The AR session failed.",
+                                     message: errorMessage)
         }
     }
     
@@ -61,19 +66,26 @@ extension ARViewController: ARSessionDelegate {
     
     // MARK: - Error handling
     
-    func displayErrorMessage(title: String, message: String) {
+    func displayErrorMessage(title: String,
+                             message: String) {
         // Blur the background.
         blurView.isHidden = false
         
         // Present an alert informing about the error that has occurred.
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let restartAction = UIAlertAction(title: "Restart Session", style: .default) { _ in
-            alertController.dismiss(animated: true, completion: nil)
+        let alertController = UIAlertController(title: title,
+                                                message: message,
+                                                preferredStyle: .alert)
+        let restartAction = UIAlertAction(title: "Restart Session",
+                                          style: .default) { _ in
+            alertController.dismiss(animated: true,
+                                    completion: nil)
             self.blurView.isHidden = true
             self.resetTracking()
         }
         alertController.addAction(restartAction)
-        present(alertController, animated: true, completion: nil)
+        present(alertController,
+                animated: true,
+                completion: nil)
     }
     
     // MARK: - Interface Actions

@@ -11,7 +11,8 @@ import UIKit
 import simd
 
 @objc protocol ARViewControllerDelegate: class {
-    func updateCameraTransform(transfrom: simd_float4x4)
+    func updateNodeTransform(transfrom: simd_float4x4,
+                              nodeName: String)
 }
 
 class ARViewController: UIViewController {
@@ -39,6 +40,14 @@ class ARViewController: UIViewController {
     
     /// Delegate
     var delegate: ARViewControllerDelegate?
+    
+    open var vumarkGUIDs: [String] = []
+    open var qrImagePhysicalWidth: CGFloat = 60
+    var enableImageRecognition: Bool {
+        return qrImagePhysicalWidth != 0 && !vumarkGUIDs.isEmpty
+    }
+    private let qrCodeGenerator = QRCodeGenerator()
+    open var qrNode: SCNNode?
     
     // MARK: - View Controller Life Cycle
     
@@ -77,6 +86,17 @@ class ARViewController: UIViewController {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
+        
+        if enableImageRecognition {
+            let qrImages = vumarkGUIDs.map { qrCodeGenerator.createCGImage(value: $0)! }
+            var qrRefferenceImages: Set<ARReferenceImage> = []
+            qrImages.forEach {
+                qrRefferenceImages.insert(ARReferenceImage($0,
+                                                           orientation: .up,
+                                                           physicalWidth: qrImagePhysicalWidth))
+            }
+            configuration.detectionImages = qrRefferenceImages
+        }
         
         // Run the view's session
         sceneView.session.run(configuration,

@@ -45,7 +45,7 @@ function reloadAr() {
 }
 
 function scanQR() {
-  cordova.plugins.arkit.qrScaner("21");
+  cordova.plugins.arkit.qrScaner("MSFT000001");
 }
 
 var updateCameraWithTrottle = throttle(updateCamera, 16);

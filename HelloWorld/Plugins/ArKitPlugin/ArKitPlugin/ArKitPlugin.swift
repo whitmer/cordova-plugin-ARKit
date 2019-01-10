@@ -1,4 +1,4 @@
-import Foundation
+import SceneKit
 
 @objc(HWPArKitPlugin) class ArKitPlugin : CDVPlugin {
 
@@ -49,7 +49,6 @@ import Foundation
                 superview.insertSubview(self.arViewController.view,
                                         belowSubview: self.webView)
             }
-            
         }
     }
     
@@ -60,12 +59,26 @@ import Foundation
     }
     
     @objc func reloadSession(_ command: CDVInvokedUrlCommand) {
+        self.arViewController.restartExperience()
     }
     
-    @objc func qrScanner(_ command: CDVInvokedUrlCommand) {
-        for str in command.arguments {
-            print(str);
+    @objc func startARSessionWithoutQRRecognition(_ command: CDVInvokedUrlCommand) {
+        self.arViewController.vumarkGUIDs.removeAll()
+        self.arViewController.qrNode = nil
+        self.arViewController.restartExperience()
+    }
+    
+    @objc func startARSessionWithQRRecognition(_ command: CDVInvokedUrlCommand) {
+        // Fill vumarkGUID array
+        command.arguments.forEach { argument in
+            guard let vumarkGUID = argument as? String else { return }
+            self.arViewController.vumarkGUIDs.append(vumarkGUID)
         }
+        // Create QR node
+        self.arViewController.qrNode = SCNNode()
+        
+        // Restart AR session
+        self.arViewController.restartExperience()
     }
     
 }
