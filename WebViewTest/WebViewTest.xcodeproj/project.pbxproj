@@ -12,9 +12,6 @@
 		1888448021E897EF0024F8FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1888447E21E897EF0024F8FD /* Main.storyboard */; };
 		1888448221E897F10024F8FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1888448121E897F10024F8FD /* Assets.xcassets */; };
 		1888448521E897F10024F8FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1888448321E897F10024F8FD /* LaunchScreen.storyboard */; };
-		1890D9D021E8AB3600472016 /* .babelrc in Resources */ = {isa = PBXBuildFile; fileRef = 1890D9CD21E8AB3600472016 /* .babelrc */; };
-		1890D9D121E8AB3600472016 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1890D9CE21E8AB3600472016 /* index.html */; };
-		1890D9D221E8AB3600472016 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 1890D9CF21E8AB3600472016 /* .gitignore */; };
 		1890DA0A21E8D84D00472016 /* Classic.png in Resources */ = {isa = PBXBuildFile; fileRef = 1890D9F721E8D84D00472016 /* Classic.png */; };
 		1890DA0B21E8D84D00472016 /* Planes_4CAE.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 1890D9F821E8D84D00472016 /* Planes_4CAE.mtl */; };
 		1890DA0C21E8D84D00472016 /* Int1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1890D9F921E8D84D00472016 /* Int1.png */; };
@@ -34,6 +31,7 @@
 		1890DA1A21E8D84D00472016 /* BodyNormalMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 1890DA0821E8D84D00472016 /* BodyNormalMap.png */; };
 		1890DA1B21E8D84D00472016 /* AccessoriesMetallicMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 1890DA0921E8D84D00472016 /* AccessoriesMetallicMap.png */; };
 		1890DA1D21E8DC1700472016 /* ViewController+WKScriptMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1890DA1C21E8DC1700472016 /* ViewController+WKScriptMessageHandler.swift */; };
+		852ED21121E8DE46004FA6B0 /* webassets in Resources */ = {isa = PBXBuildFile; fileRef = 852ED21021E8DE46004FA6B0 /* webassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,9 +42,6 @@
 		1888448121E897F10024F8FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1888448421E897F10024F8FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1888448621E897F10024F8FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1890D9CD21E8AB3600472016 /* .babelrc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .babelrc; sourceTree = "<group>"; };
-		1890D9CE21E8AB3600472016 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		1890D9CF21E8AB3600472016 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		1890D9F721E8D84D00472016 /* Classic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Classic.png; sourceTree = "<group>"; };
 		1890D9F821E8D84D00472016 /* Planes_4CAE.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Planes_4CAE.mtl; sourceTree = "<group>"; };
 		1890D9F921E8D84D00472016 /* Int1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Int1.png; sourceTree = "<group>"; };
@@ -66,6 +61,7 @@
 		1890DA0821E8D84D00472016 /* BodyNormalMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BodyNormalMap.png; sourceTree = "<group>"; };
 		1890DA0921E8D84D00472016 /* AccessoriesMetallicMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AccessoriesMetallicMap.png; sourceTree = "<group>"; };
 		1890DA1C21E8DC1700472016 /* ViewController+WKScriptMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+WKScriptMessageHandler.swift"; sourceTree = "<group>"; };
+		852ED21021E8DE46004FA6B0 /* webassets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = webassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,24 +97,14 @@
 				1888447A21E897EF0024F8FD /* AppDelegate.swift */,
 				1888447C21E897EF0024F8FD /* ViewController.swift */,
 				1890DA1C21E8DC1700472016 /* ViewController+WKScriptMessageHandler.swift */,
+				852ED21021E8DE46004FA6B0 /* webassets */,
 				1890D9F521E8D84D00472016 /* Models */,
-				1890D9CC21E8AB3600472016 /* webassets */,
 				1888447E21E897EF0024F8FD /* Main.storyboard */,
 				1888448121E897F10024F8FD /* Assets.xcassets */,
 				1888448321E897F10024F8FD /* LaunchScreen.storyboard */,
 				1888448621E897F10024F8FD /* Info.plist */,
 			);
 			path = WebViewTest;
-			sourceTree = "<group>";
-		};
-		1890D9CC21E8AB3600472016 /* webassets */ = {
-			isa = PBXGroup;
-			children = (
-				1890D9CD21E8AB3600472016 /* .babelrc */,
-				1890D9CE21E8AB3600472016 /* index.html */,
-				1890D9CF21E8AB3600472016 /* .gitignore */,
-			);
-			path = webassets;
 			sourceTree = "<group>";
 		};
 		1890D9F521E8D84D00472016 /* Models */ = {
@@ -227,7 +213,6 @@
 				1890DA1521E8D84D00472016 /* BodyRoughnessMap.png in Resources */,
 				1890DA1921E8D84D00472016 /* firetruck.obj in Resources */,
 				1890DA1721E8D84D00472016 /* BodyMetallicMap.png in Resources */,
-				1890D9D121E8AB3600472016 /* index.html in Resources */,
 				1890DA0B21E8D84D00472016 /* Planes_4CAE.mtl in Resources */,
 				1890DA1A21E8D84D00472016 /* BodyNormalMap.png in Resources */,
 				1890DA1B21E8D84D00472016 /* AccessoriesMetallicMap.png in Resources */,
@@ -235,10 +220,9 @@
 				1890DA1821E8D84D00472016 /* BodyBaseColor.png in Resources */,
 				1890DA1221E8D84D00472016 /* AccessoriesAOMap.png in Resources */,
 				1890DA0A21E8D84D00472016 /* Classic.png in Resources */,
+				852ED21121E8DE46004FA6B0 /* webassets in Resources */,
 				1890DA1021E8D84D00472016 /* AccessoriesRoughnessMap.png in Resources */,
-				1890D9D021E8AB3600472016 /* .babelrc in Resources */,
 				1888448221E897F10024F8FD /* Assets.xcassets in Resources */,
-				1890D9D221E8AB3600472016 /* .gitignore in Resources */,
 				1890DA1421E8D84D00472016 /* AccessoriesNormalMap.png in Resources */,
 				1890DA1321E8D84D00472016 /* BodyAOMap.png in Resources */,
 				1888448021E897EF0024F8FD /* Main.storyboard in Resources */,

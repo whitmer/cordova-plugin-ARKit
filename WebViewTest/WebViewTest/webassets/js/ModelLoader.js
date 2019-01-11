@@ -39,7 +39,6 @@ class ModelLoader {
             const mtlLoader = new THREE.MTLLoader();
             mtlLoader.setCrossOrigin('anonymous');
             const mtlSource = this.replaceTexturePath(textureSource);
-            console.log(mtlSource);
             const material = mtlLoader.parse(mtlSource, '');
             material.preload();
             objLoader.setMaterials(material);

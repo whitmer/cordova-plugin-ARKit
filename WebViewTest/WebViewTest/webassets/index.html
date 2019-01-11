@@ -55,7 +55,11 @@
 			}
 		</script>
 
-		<script>			
+		<script>
+			document.addEventListener('model', (event) => {
+				console.log('was called by iOS');
+				addModel(event.detail);
+			});
 			const MTL_URL = 'models/Planes_4CAE.mtl';
 			const OBJ_URL = 'models/Planes_4CAE.obj';
 			const SCALE = 15;
@@ -68,7 +72,7 @@
 			var controls;
 			init();
 			animate();
-			
+
 			function init() {
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
@@ -94,8 +98,6 @@
 				container.appendChild( renderer.domElement );
 				//
 				window.addEventListener( 'resize', onWindowResize, false );
-
-				addModel();
 			}
 
 			function onWindowResize() {
@@ -120,8 +122,8 @@
 				}
 			};
 			
-			async function addModel() {
-				const url = 'models/Planes_4CAE.obj';
+			async function addModel(detail) {
+				const {scale, position, eulerAngles, url} = detail;
 
 				const baseUrlSearch = url.match(/.*\//);
 				let base = '';

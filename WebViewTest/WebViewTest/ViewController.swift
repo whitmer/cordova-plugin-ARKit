@@ -85,7 +85,7 @@ class ViewController: UIViewController {
             position : [0, 0, 0]
         }
         """
-        self.webView.evaluateJavaScript("var event = new CustomEvent('model', \(json); document.dispatchEvent(event);",
+        self.webView.evaluateJavaScript("var event = new CustomEvent('model', {detail: \(json)}); document.dispatchEvent(event);",
                                         completionHandler: nil)
     }
 
