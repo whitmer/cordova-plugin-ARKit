@@ -14,11 +14,11 @@ class ViewController: UIViewController {
     // MARK: - Interface Actions
     
     @IBAction func loadModelA(_ sender: UIButton) {
-        loadModel(name: "Planes_4CAE")
+        loadModel(name: "Models/Cessna 172 OBJ 99 Meshes/Planes_4CAE")
     }
     
     @IBAction func loadModelB(_ sender: UIButton) {
-        loadModel(name: "firetruck")
+        loadModel(name: "Models/Cessna 172 OBJ 99 Meshes/firetruck")
     }
     
     // MARK: - Properties
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         
         
-        webView.load(URLRequest(url: Bundle.main.url(forResource: "webassets/index",
+        webView.load(URLRequest(url: Bundle.main.url(forResource: "index",
                                                      withExtension: "html")!))
     }
     
@@ -75,20 +75,40 @@ class ViewController: UIViewController {
     // MARK: - Model Loading
     
     func loadModel(name: String) {
-        guard let modelOneURL = Bundle.main.url(forResource: name,
-                                                withExtension: "obj") else { return }
+        guard let modelURL = Bundle.main.url(forResource: name,
+                                             withExtension: "obj") else { return }
+        let modelFolderURL = modelURL.deletingLastPathComponent()
+        
+        let fileManager = FileManager.default
+        var textureURLs: [URL] = []
+        do {
+            let files = try fileManager.contentsOfDirectory(at: modelFolderURL,
+                                                            includingPropertiesForKeys: nil,
+                                                            options: [])
+            for file in files {
+                if file.lastPathComponent.contains("png") {
+                    textureURLs.append(file)
+                }
+            }
+        }
+        catch let error as NSError {
+            print("Ooops! Something went wrong: \(error)")
+        }
+        
         let json = """
         {
-            url : "\(modelOneURL.absoluteString)",
-            scale : [1, 1, 1],
-            eulerAngles : [0, 0, 0],
-            position : [0, 0, 0]
+        modelURL : "\(modelURL)",
+        textureURLs : "\(textureURLs)",
+        scale : [1, 1, 1],
+        eulerAngles : [0, 0, 0],
+        position : [0, 0, 0]
         }
         """
-        self.webView.evaluateJavaScript("var event = new CustomEvent('model', \(json); document.dispatchEvent(event);",
-                                        completionHandler: nil)
+        
+        webView.evaluateJavaScript("var event = new CustomEvent('model', \(json); document.dispatchEvent(event);",
+            completionHandler: nil)
     }
-
+    
 }
 
 extension ViewController: WKNavigationDelegate { }
