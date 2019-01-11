@@ -11,10 +11,24 @@ import WebKit
 
 class ViewController: UIViewController {
     
+    // MARK: - Interface Actions
+    
+    @IBAction func loadModelA(_ sender: UIButton) {
+        loadModel(name: "Planes_4CAE")
+    }
+    
+    @IBAction func loadModelB(_ sender: UIButton) {
+        loadModel(name: "firetruck")
+    }
+    
+    // MARK: - Properties
+    
     let getUrlAtDocumentStartScript = "GetUrlAtDocumentStart"
     let getUrlAtDocumentEndScript = "GetUrlAtDocumentEnd"
     
     var webView: WKWebView!
+    
+    // MARK: - Life Cycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +45,7 @@ class ViewController: UIViewController {
     }
     
     func addWebView() {
+        // Setup Configuration
         let configuration = WKWebViewConfiguration()
         configuration.addScript(script: WKUserScript.getUrlScript(scriptName: getUrlAtDocumentStartScript),
                                 scriptHandlerName:getUrlAtDocumentStartScript,
@@ -40,54 +55,43 @@ class ViewController: UIViewController {
                                 scriptHandlerName:getUrlAtDocumentEndScript,
                                 scriptMessageHandler: self,
                                 injectionTime: .atDocumentEnd)
-        configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
-        
+        configuration.preferences.setValue(true,
+                                           forKey: "allowFileAccessFromFileURLs")
+        // Setup Frame
         let frame = CGRect(origin: .zero,
                            size: CGSize(width: view.frame.width,
                                         height: view.frame.height - 90))
-        
+        // Init Web View
         webView = WKWebView(frame: frame,
                             configuration: configuration)
         webView.scrollView.isScrollEnabled = false;
-        
         webView.navigationDelegate = self
-
+        // Setup Web View Appearance
         webView.layer.masksToBounds = true
         webView.layer.cornerRadius = 10
         view.addSubview(webView)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            self.webView.evaluateJavaScript("webkit.messageHandlers.GetUrlAtDocumentStart.postMessage('12321')",
-//                                       completionHandler: nil)
-            self.webView.evaluateJavaScript("var event = new CustomEvent('model', { 'detail': 'JSON' }); document.dispatchEvent(event);",
-                                            completionHandler: nil)
-        }
     }
-
-
-}
-
-extension ViewController: WKNavigationDelegate {
     
-}
-
-
-extension ViewController: WKScriptMessageHandler {
-    func userContentController(_ userContentController: WKUserContentController,
-                               didReceive message: WKScriptMessage) {
-        switch message.name {
-            
-        case getUrlAtDocumentStartScript:
-            print("start: \(message.body)")
-            
-        case getUrlAtDocumentEndScript:
-            print("end: \(message.body)")
-            
-        default:
-            break;
+    // MARK: - Model Loading
+    
+    func loadModel(name: String) {
+        guard let modelOneURL = Bundle.main.url(forResource: name,
+                                                withExtension: "obj") else { return }
+        let json = """
+        {
+            url : "\(modelOneURL.absoluteString)",
+            scale : [1, 1, 1],
+            eulerAngles : [0, 0, 0],
+            position : [0, 0, 0]
         }
+        """
+        self.webView.evaluateJavaScript("var event = new CustomEvent('model', \(json); document.dispatchEvent(event);",
+                                        completionHandler: nil)
     }
+
 }
+
+extension ViewController: WKNavigationDelegate { }
 
 extension WKUserScript {
     class func getUrlScript(scriptName: String) -> String {

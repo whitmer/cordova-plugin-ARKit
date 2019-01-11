@@ -1,0 +1,21 @@
+# Material Count: 2
+
+newmtl materialBody
+map_Kd BodyBaseColor.png
+Kd 0.300000 0.000000 0.000000
+map_metallic BodyMetallicMap.png
+metallic 0.03 0.1500000 0.1500000
+map_roughness BodyRoughnessMap.png
+roughness 0.150000 0.600000 0.600000
+map_ao BodyAOMap.png
+map_bump BodyNormalMap.png
+
+newmtl materialAccessories
+map_Kd AccessoriesBaseColor.png
+Kd 0.000000 0.000000 0.000000
+map_metallic AccessoriesMetallicMap.png
+metallic 0.200000 0.200000 0.200000
+map_roughness AccessoriesRoughnessMap.png
+roughness 0.200000 0.200000 0.200000
+map_ao AccessoriesAOMap.png
+map_bump AccessoriesNormalMap.png

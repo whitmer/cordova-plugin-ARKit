@@ -1,0 +1,27 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+newmtl Cessna1
+Ka 0.000000 0.000000 0.000000
+Kd 0.674510 0.690196 0.705882
+Ks 0.330000 0.330000 0.330000
+map_Kd Classic.png
+
+newmtl ForegroundColor
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl CessnaCockpit1
+Ka 0.000000 0.000000 0.000000
+Kd 0.380392 0.388235 0.392157
+Ks 0.330000 0.330000 0.330000
+map_Kd Int1.png
+
+newmtl CessnaWindows
+Ka 0.000000 0.000000 0.000000
+Kd 0.164706 0.549020 0.509804
+Ks 0.330000 0.330000 0.330000
+d 0.70000
+
