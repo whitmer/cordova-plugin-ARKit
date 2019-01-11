@@ -20,6 +20,7 @@
 
 		<script src="js/MTLLoader.js"></script>
 		<script src="js/OBJLoader.js"></script>
+		<script src="js/FBXLoader.js"></script>
 		<script src="js/OrbitControls.js"></script>
 
 		<script src="js/ModelLoader.js"></script>
@@ -137,11 +138,13 @@
 
 				const modelURL = url.replace(base, '');
 				const mtlURL = modelURL.replace('.obj', '.mtl');
+				const extensionPos = modelURL.search(/(\.[a-z]+)$/);
+				const modelType = modelURL.slice(extensionPos + 1);
 
 				const modelLoader = new ModelLoader(base);
 				const options = {
         	modelUrl: modelURL,
-        	modelType: 'obj',
+        	modelType: modelType,
         	textureUrl: mtlURL
       	};
 				const model = await modelLoader.load(options, onProgress.bind(this));

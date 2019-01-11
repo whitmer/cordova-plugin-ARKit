@@ -54,6 +54,26 @@ class ModelLoader {
 
           result = model;
           break;
+
+        case 'fbx':
+          const fbxLoader = new THREE.FBXLoader();
+          const mixers = [];
+          const object = fbxLoader.parse(modelSource);
+          object.mixer = new THREE.AnimationMixer( object );
+					mixers.push( object.mixer );
+					// var action = object.mixer.clipAction( object.animations[ 0 ] );
+					// action.play();
+
+					object.traverse(child => {
+            if ( child.isMesh ) {
+							child.castShadow = true;
+							child.receiveShadow = true;
+            }
+          });
+
+					result = object;
+          break;
+
         default:
           console.warn('Format not supported');
           break;
