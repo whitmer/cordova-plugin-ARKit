@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
 //            self.webView.evaluateJavaScript("webkit.messageHandlers.GetUrlAtDocumentStart.postMessage('12321')",
 //                                       completionHandler: nil)
-            self.webView.evaluateJavaScript("var event = new Event('JSON');document.dispatchEvent(event);",
+            self.webView.evaluateJavaScript("var event = new CustomEvent('model', { 'detail': 'JSON' }); document.dispatchEvent(event);",
                                             completionHandler: nil)
         }
     }
