@@ -24,7 +24,10 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        webView.load(URLRequest(url: URL(string: "http://apple.com")!))
+        
+        
+        webView.load(URLRequest(url: Bundle.main.url(forResource: "index",
+                                                     withExtension: "html")!))
     }
     
     func addWebView() {
