@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         
         
-        webView.load(URLRequest(url: Bundle.main.url(forResource: "index",
+        webView.load(URLRequest(url: Bundle.main.url(forResource: "webassets/index",
                                                      withExtension: "html")!))
     }
     
@@ -40,6 +40,7 @@ class ViewController: UIViewController {
                                 scriptHandlerName:getUrlAtDocumentEndScript,
                                 scriptMessageHandler: self,
                                 injectionTime: .atDocumentEnd)
+        configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         
         let frame = CGRect(origin: .zero,
                            size: CGSize(width: view.frame.width,
@@ -47,12 +48,20 @@ class ViewController: UIViewController {
         
         webView = WKWebView(frame: frame,
                             configuration: configuration)
+        webView.scrollView.isScrollEnabled = false;
+        
         webView.navigationDelegate = self
 
         webView.layer.masksToBounds = true
         webView.layer.cornerRadius = 10
         view.addSubview(webView)
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            self.webView.evaluateJavaScript("webkit.messageHandlers.GetUrlAtDocumentStart.postMessage('12321')",
+//                                       completionHandler: nil)
+            self.webView.evaluateJavaScript("var event = new Event('JSON');document.dispatchEvent(event);",
+                                            completionHandler: nil)
+        }
     }
 
 
