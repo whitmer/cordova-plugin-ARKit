@@ -40,7 +40,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         
         
-        webView.load(URLRequest(url: Bundle.main.url(forResource: "index",
+        webView.load(URLRequest(url: Bundle.main.url(forResource: "webassets/index",
                                                      withExtension: "html")!))
     }
     
@@ -79,8 +79,11 @@ class ViewController: UIViewController {
                                              withExtension: "obj") else { return }
         let modelFolderURL = modelURL.deletingLastPathComponent()
         
-        let fileManager = FileManager.default
         var textureURLs: [URL] = []
+        var materialURL: URL?
+        
+        let fileManager = FileManager.default
+        
         do {
             let files = try fileManager.contentsOfDirectory(at: modelFolderURL,
                                                             includingPropertiesForKeys: nil,
@@ -88,6 +91,9 @@ class ViewController: UIViewController {
             for file in files {
                 if file.lastPathComponent.contains("png") {
                     textureURLs.append(file)
+                }
+                if file.lastPathComponent.contains("mtl") {
+                    materialURL = file
                 }
             }
         }
@@ -98,14 +104,15 @@ class ViewController: UIViewController {
         let json = """
         {
         modelURL : "\(modelURL)",
+        materialURL : "\(String(describing: materialURL))",
         textureURLs : "\(textureURLs)",
         scale : [1, 1, 1],
         eulerAngles : [0, 0, 0],
         position : [0, 0, 0]
         }
         """
-        
-        webView.evaluateJavaScript("var event = new CustomEvent('model', \(json); document.dispatchEvent(event);",
+
+        webView.evaluateJavaScript("var event = new CustomEvent('model', { detail: \(json) }); document.dispatchEvent(event);",
             completionHandler: nil)
     }
     

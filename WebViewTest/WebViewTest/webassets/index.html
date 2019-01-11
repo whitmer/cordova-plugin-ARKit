@@ -61,9 +61,6 @@
 				console.log('was called by iOS');
 				addModel(event.detail);
 			});
-			const MTL_URL = 'models/Planes_4CAE.mtl';
-			const OBJ_URL = 'models/Planes_4CAE.obj';
-			const SCALE = 15;
 
 			var lastModelMesh = undefined;
 			var container, stats;
@@ -128,24 +125,26 @@
 					scene.remove(lastModelMesh);
 					lastModelMesh = undefined;
 				}
-				const {scale, position, eulerAngles, url} = detail;
-
-				const baseUrlSearch = url.match(/.*\//);
+				const {scale, position, eulerAngles, modelURL} = detail;
+				let { materialURL } = detail;
+				const baseUrlSearch = modelURL.match(/.*\//);
 				let base = '';
 				if (baseUrlSearch && baseUrlSearch.length) {
 					base = baseUrlSearch[0];
 				}
 
-				const modelURL = url.replace(base, '');
-				const mtlURL = modelURL.replace('.obj', '.mtl');
-				const extensionPos = modelURL.search(/(\.[a-z]+)$/);
-				const modelType = modelURL.slice(extensionPos + 1);
+				const modelURLUpdate = modelURL.replace(base, '');
+				if (materialURL) {
+					materialURL = materialURL.replace(base, '');
+				}
+				const extensionPos = modelURLUpdate.search(/(\.[a-z]+)$/);
+				const modelType = modelURLUpdate.slice(extensionPos + 1);
 
 				const modelLoader = new ModelLoader(base);
 				const options = {
-        	modelUrl: modelURL,
+        	modelUrl: modelURLUpdate,
         	modelType: modelType,
-        	textureUrl: mtlURL
+        	textureUrl: materialURL
       	};
 				const model = await modelLoader.load(options, onProgress.bind(this));
 				lastModelMesh = model;
