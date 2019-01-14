@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func loadModelB(_ sender: UIButton) {
-        loadModel(name: "Models/Cessna 172 OBJ 99 Meshes/firetruck")
+        loadModel(name: "Models/firetruck/firetruck")
     }
     
     // MARK: - Properties
