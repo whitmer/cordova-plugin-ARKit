@@ -135,7 +135,11 @@
 
 				const modelURLUpdate = modelURL.replace(base, '');
 				if (materialURL) {
-					materialURL = materialURL.replace(base, '');
+					//Mtl file doens't match the Model base
+					const lastSlashPosition = materialURL.lastIndexOf('/');
+					if (lastSlashPosition > -1) {
+						materialURL = materialURL.slice(lastSlashPosition + 1);
+					}
 				}
 				const extensionPos = modelURLUpdate.search(/(\.[a-z]+)$/);
 				const modelType = modelURLUpdate.slice(extensionPos + 1);
