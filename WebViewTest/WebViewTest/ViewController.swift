@@ -102,7 +102,7 @@ class ViewController: UIViewController {
         }
         
         let modelURLString = String(describing: modelURL)
-        let materialURLString = materialURL != nil ? String(describing: materialURL!) : "null"
+        let materialURLString = materialURL != nil ? String(describing: materialURL!) : ""
         let textureURLsString = String(describing: textureURLs)
         
         let json = """
