@@ -101,11 +101,15 @@ class ViewController: UIViewController {
             print("Ooops! Something went wrong: \(error)")
         }
         
+        let modelURLString = String(describing: modelURL)
+        let materialURLString = materialURL != nil ? String(describing: materialURL!) : "null"
+        let textureURLsString = String(describing: textureURLs)
+        
         let json = """
         {
-        modelURL : "\(modelURL)",
-        materialURL : "\(String(describing: materialURL))",
-        textureURLs : "\(textureURLs)",
+        modelURL : "\(modelURLString)",
+        materialURL : "\(materialURLString)",
+        textureURLs : "\(textureURLsString)",
         scale : [1, 1, 1],
         eulerAngles : [0, 0, 0],
         position : [0, 0, 0]

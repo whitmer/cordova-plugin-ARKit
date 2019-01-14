@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,35 +15,15 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WebViewTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tiv-83-C2u">
-                                <rect key="frame" x="40" y="597" width="110" height="50"/>
-                                <color key="backgroundColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="1WC-We-ap1"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="110" id="qB8-2g-cMp"/>
-                                </constraints>
-                                <state key="normal" title="Load A">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="loadModelA:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6WZ-ff-4KO"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1pN-5D-TOv">
-                                <rect key="frame" x="225" y="597" width="110" height="50"/>
+                                <rect key="frame" x="244" y="812" width="110" height="50"/>
                                 <color key="backgroundColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="110" id="1p9-HA-FTS"/>
-                                    <constraint firstAttribute="height" constant="50" id="5Ic-Z4-jOi"/>
+                                    <constraint firstAttribute="width" constant="110" id="6hg-tC-Dwu"/>
+                                    <constraint firstAttribute="height" constant="50" id="BZM-wY-Gua"/>
                                 </constraints>
                                 <state key="normal" title="Load B">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -58,14 +38,33 @@
                                     <action selector="loadModelB:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eG3-Nj-qcD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tiv-83-C2u">
+                                <rect key="frame" x="60" y="812" width="110" height="50"/>
+                                <color key="backgroundColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="mZu-KD-6Tb"/>
+                                    <constraint firstAttribute="width" constant="110" id="xv2-a6-uRc"/>
+                                </constraints>
+                                <state key="normal" title="Load A">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="loadModelA:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6WZ-ff-4KO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Tiv-83-C2u" secondAttribute="bottom" constant="20" symbolic="YES" id="6Jf-AR-Ipv"/>
-                            <constraint firstItem="Tiv-83-C2u" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="J4w-oJ-3hs"/>
-                            <constraint firstItem="1pN-5D-TOv" firstAttribute="leading" secondItem="Tiv-83-C2u" secondAttribute="trailing" constant="75" id="MkT-1n-opB"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="1pN-5D-TOv" secondAttribute="bottom" constant="20" id="NYV-9L-qPf"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1pN-5D-TOv" secondAttribute="trailing" id="jEN-ix-GuB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1pN-5D-TOv" secondAttribute="trailing" constant="60" id="Mz6-uG-YP3"/>
+                            <constraint firstItem="Tiv-83-C2u" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="60" id="iJr-fT-PhH"/>
+                            <constraint firstItem="1pN-5D-TOv" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="lJ2-XB-Y8X"/>
+                            <constraint firstItem="Tiv-83-C2u" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="z7T-wU-zeY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
