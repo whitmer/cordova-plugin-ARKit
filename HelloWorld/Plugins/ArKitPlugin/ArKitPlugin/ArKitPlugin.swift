@@ -5,7 +5,8 @@ import SceneKit
     // MARK: - Properties
     
     /// Callback ID
-    var callbackId: String!
+    var cameraListenerCallbackId: String!
+    var qrFoundedCallbackId: String!
     
     /// ARViewController
     var arViewController: ARViewController!
@@ -58,17 +59,17 @@ import SceneKit
         self.arViewController = nil
     }
     
-    @objc func reloadSession(_ command: CDVInvokedUrlCommand) {
+    @objc func restartArSession(_ command: CDVInvokedUrlCommand) {
         self.arViewController.restartExperience()
     }
     
-    @objc func startARSessionWithoutQRRecognition(_ command: CDVInvokedUrlCommand) {
+    func startARSessionWithoutQRRecognition(_ command: CDVInvokedUrlCommand) {
         self.arViewController.vumarkGUIDs.removeAll()
         self.arViewController.qrNode = nil
         self.arViewController.restartExperience()
     }
     
-    @objc func startARSessionWithQRRecognition(_ command: CDVInvokedUrlCommand) {
+    func startARSessionWithQRRecognition(_ command: CDVInvokedUrlCommand) {
         // Fill vumarkGUID array
         command.arguments.forEach { argument in
             guard let vumarkGUID = argument as? String else { return }

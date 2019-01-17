@@ -17,25 +17,26 @@ function updateCamera(str) {
 }
 
 function addARView() {
-  cordova.plugins.arkit.addARView();
-}
-
-function removeArView() {
-  cordova.plugins.arkit.removeARView();
-}
-
-function reloadAr() {
-}
-
-function qrRecongnition() {
-  cordova.plugins.arkit.startARSessionWithQRRecognition(qrContent);
-}
-
-function startSimpleAr() {
   cordova.plugins.arkit.startArSession();
 }
 
-var updateCameraWithTrottle = throttle(updateCamera, 1000);
+function removeArView() {
+  cordova.plugins.arkit.stopArSession();
+}
+
+function reloadAr() {
+    cordova.plugins.arkit.restartArSession();
+}
+
+//function qrRecongnition() {
+//  cordova.plugins.arkit.startARSessionWithQRRecognition(qrContent);
+//}
+//
+//function startSimpleAr() {
+//  cordova.plugins.arkit.startArSession();
+//}
+
+var updateCameraWithTrottle = throttle(updateCamera, 20);
 
 var app = {
     // Application Constructor
@@ -48,13 +49,12 @@ var app = {
       animate();
 
       //Set callback function
-      cordova.plugins.arkit.setListenerForArChanges('', str => updateCameraWithTrottle(str), console.error);
+      cordova.plugins.arkit.onCameraUpdate(str => console.log(str));
+      // cordova.plugins.arkit.onQrFounded(str => (str));
 
       document.getElementById('addARView').addEventListener('click', addARView);
       document.getElementById('removeArView').addEventListener('click', removeArView);
-      // document.getElementById('reloadBtn').addEventListener('click', reloadAr);
-      document.getElementById('startSimpleAr').addEventListener('click', startSimpleAr);
-      document.getElementById('qrRecongnition').addEventListener('click', qrRecongnition);
+      document.getElementById('reloadBtn').addEventListener('click', reloadAr);
   }
 };
 
