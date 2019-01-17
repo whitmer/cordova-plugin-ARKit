@@ -3,17 +3,14 @@ var camera, scene, renderer;
 var mesh;
 const container = document.getElementById('modelContainer');
 
-function updateCamera(str) {
-  console.log(str);
-  // const arr = str.split(',').map(number => parseFloat(number));
+function updateCamera(obj) {
+  let [positionX, positionY, positionZ] = obj;
+  const posFactor = 18;
+  positionX *= posFactor; positionY *= posFactor; positionZ*= posFactor;
+  camera.position.set(positionX, positionY, positionZ);
 
-  // let [posX, posY, posZ] = arr.slice(0,3);
-  // const posFactor = 18;
-  // posX *= posFactor; posY *= posFactor; posZ*= posFactor;
-  // camera.position.set(posX, posY, posZ);
-
-  // const [quatX, quatY, quatZ, quatW] = arr.slice(3);
-  // camera.quaternion.set(quatX, quatY, quatZ, quatW);
+  const [quaternionX, quaternionY, quaternionZ, quaternionW] = obj;
+  camera.quaternion.set(quaternionX, quaternionY, quaternionZ, quaternionW);
 }
 
 function addARView() {
@@ -49,7 +46,7 @@ var app = {
       animate();
 
       //Set callback function
-      cordova.plugins.arkit.onCameraUpdate(str => console.log(str));
+      cordova.plugins.arkit.onCameraUpdate(obj => updateCameraWithTrottle(obj));
       // cordova.plugins.arkit.onQrFounded(str => (str));
 
       document.getElementById('addARView').addEventListener('click', addARView);
