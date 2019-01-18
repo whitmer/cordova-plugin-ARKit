@@ -14,7 +14,7 @@ function updateCamera(obj) {
 }
 
 function addARView() {
-  cordova.plugins.arkit.startArSession();
+    cordova.plugins.arkit.startArSession({qrRecognitionEnabled: true, qrData:["MSFT000001"]});
 }
 
 function removeArView() {
@@ -46,6 +46,7 @@ var app = {
       animate();
 
       //Set callback function
+      cordova.plugins.arkit.onQrFounded(obj => console.log(obj));
       cordova.plugins.arkit.onCameraUpdate(obj => updateCameraWithTrottle(obj));
       // cordova.plugins.arkit.onQrFounded(str => (str));
 

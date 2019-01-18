@@ -44,11 +44,17 @@ import SceneKit
     @objc func addARView(_ command: CDVInvokedUrlCommand) {
         DispatchQueue.global(qos: .utility).async {
             self.instantiateARViewController()
-            
             DispatchQueue.main.async {
                 guard let superview = self.webView.superview else { return }
                 superview.insertSubview(self.arViewController.view,
                                         belowSubview: self.webView)
+                
+                let options = command.arguments[0] as! NSMutableDictionary
+                let qrRecognitionEnabled = options.object(forKey: "qrRecognitionEnabled") as! Bool;
+                if (qrRecognitionEnabled) {
+                    let qrDataArr = options.object(forKey: "qrData") as! NSArray;
+                    self.setupQrRecognition(qrDataArr: qrDataArr);
+                }
             }
         }
     }
@@ -69,11 +75,10 @@ import SceneKit
         self.arViewController.restartExperience()
     }
     
-    func startARSessionWithQRRecognition(_ command: CDVInvokedUrlCommand) {
+    func setupQrRecognition(qrDataArr: NSArray) {
         // Fill vumarkGUID array
-        command.arguments.forEach { argument in
-            guard let vumarkGUID = argument as? String else { return }
-            self.arViewController.vumarkGUIDs.append(vumarkGUID)
+        qrDataArr.forEach { qrData in
+            self.arViewController.vumarkGUIDs.append(qrData as! String)
         }
         // Create QR node
         self.arViewController.qrNode = SCNNode()

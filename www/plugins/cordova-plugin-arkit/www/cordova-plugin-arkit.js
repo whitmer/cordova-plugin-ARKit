@@ -11,8 +11,8 @@ cordova.define("cordova-plugin-arkit.cordova-plugin-arkit", function(require, ex
     };
     
     /// Add AR View below WebView and start AR session
-    exports.startArSession = function() {
-        exec(undefined, undefined, PLUGIN_NAME, 'addARView');
+    exports.startArSession = function(options = {qrRecognitionEnabled: false}) {
+        exec(undefined, undefined, PLUGIN_NAME, 'addARView', [options]);
     };
     
     /// Stop AR session and remove AR View the from veiw stack
