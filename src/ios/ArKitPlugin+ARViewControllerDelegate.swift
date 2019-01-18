@@ -25,23 +25,36 @@ extension ArKitPlugin: ARViewControllerDelegate {
     /// - Parameter transfrom: float4x4 transform matrix
     func sendPositionAndQuaternion(transfrom: simd_float4x4,
                                    nodeName: String) {
-        let cameraPosition = float3(transfrom.columns.3.x,
+        let position = float3(transfrom.columns.3.x,
                                     transfrom.columns.3.y,
                                     transfrom.columns.3.z)
-        let cameraPositionX = cameraPosition.x
-        let cameraPositionY = cameraPosition.y
-        let cameraPositionZ = cameraPosition.z
+        let positionX = position.x
+        let positionY = position.y
+        let positionZ = position.z
         
-        let cameraQuaternion = simd_quatf(transfrom)
-        let cameraQuaternionX = cameraQuaternion.vector.x
-        let cameraQuaternionY = cameraQuaternion.vector.y
-        let cameraQuaternionZ = cameraQuaternion.vector.z
-        let cameraQuaternionW = cameraQuaternion.vector.w
+        let quaternion = simd_quatf(transfrom)
+        let quaternionX = quaternion.vector.x
+        let quaternionY = quaternion.vector.y
+        let quaternionZ = quaternion.vector.z
+        let quaternionW = quaternion.vector.w
         
-        let message = "\(nodeName): \(cameraPositionX), \(cameraPositionY), \(cameraPositionZ), \(cameraQuaternionX), \(cameraQuaternionY), \(cameraQuaternionZ), \(cameraQuaternionW)"
+        
+        let callbackId = nodeName == "Camera" ? cameraListenerCallbackId : qrFoundedCallbackId
+    
+        let json = """
+        {
+        positionX: "\(positionX)",
+        positionY : "\(positionY)",
+        positionZ : "\(positionZ)",
+        quaternionX : "\(quaternionX)",
+        quaternionY : "\(quaternionY)",
+        quaternionZ : "\(quaternionZ)",
+        quaternionW : "\(quaternionW)",
+        }
+        """
         
         guard let result = CDVPluginResult(status: CDVCommandStatus_OK,
-                                           messageAs: message) else { return }
+                                           messageAs: json) else { return }
         result.setKeepCallbackAs(true)
         commandDelegate!.send(result,
                               callbackId: callbackId)
@@ -50,8 +63,11 @@ extension ArKitPlugin: ARViewControllerDelegate {
     /// Save Callback ID
     ///
     /// - Parameter command: cordova invoked URL command
-    @objc func setListenerForArChanges(_ command: CDVInvokedUrlCommand) {
-        callbackId = command.callbackId
+    @objc func setCameraListener(_ command: CDVInvokedUrlCommand) {
+        cameraListenerCallbackId = command.callbackId
     }
-
+    
+    @objc func setOnQrFounded(_ command: CDVInvokedUrlCommand) {
+        qrFoundedCallbackId = command.callbackId
+    }
 }

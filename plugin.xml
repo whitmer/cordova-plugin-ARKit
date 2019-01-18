@@ -20,6 +20,7 @@
 
         <source-file src="src/ios/ArKitPlugin.swift"/>
         <source-file src="src/ios/ArKitPlugin+ARViewControllerDelegate.swift"/>
+        <source-file src="src/ios/QRCodeGenerator.swift"/>
 
         <!-- ARViewController -->
         <source-file src="src/ios/ViewControllers/ARViewController/ARViewController.swift"/>
