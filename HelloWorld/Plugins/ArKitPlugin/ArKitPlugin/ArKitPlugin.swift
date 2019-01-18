@@ -52,7 +52,7 @@ import SceneKit
                 let options = command.arguments[0] as! NSMutableDictionary
                 let qrRecognitionEnabled = options.object(forKey: "qrRecognitionEnabled") as! Bool;
                 if (qrRecognitionEnabled) {
-                    let qrDataArr = options.object(forKey: "qrData") as! NSArray;
+                    let qrDataArr = options.object(forKey: "qrData") as! [String]
                     self.setupQrRecognition(qrDataArr: qrDataArr);
                 }
             }
@@ -75,10 +75,10 @@ import SceneKit
         self.arViewController.restartExperience()
     }
     
-    func setupQrRecognition(qrDataArr: NSArray) {
+    func setupQrRecognition(qrDataArr: [String]) {
         // Fill vumarkGUID array
         qrDataArr.forEach { qrData in
-            self.arViewController.vumarkGUIDs.append(qrData as! String)
+            self.arViewController.vumarkGUIDs.append(qrData)
         }
         // Create QR node
         self.arViewController.qrNode = SCNNode()
