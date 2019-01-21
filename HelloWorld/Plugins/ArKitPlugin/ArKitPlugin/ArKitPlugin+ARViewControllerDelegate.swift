@@ -40,21 +40,20 @@ extension ArKitPlugin: ARViewControllerDelegate {
         
         
         let callbackId = nodeName == "Camera" ? cameraListenerCallbackId : qrFoundedCallbackId
-    
-        let json = """
-        {
-        positionX: "\(positionX)",
-        positionY : "\(positionY)",
-        positionZ : "\(positionZ)",
-        quaternionX : "\(quaternionX)",
-        quaternionY : "\(quaternionY)",
-        quaternionZ : "\(quaternionZ)",
-        quaternionW : "\(quaternionW)",
-        }
-        """
+        
+        let data = [
+            "positionX": positionX,
+            "positionY": positionY,
+            "positionZ": positionZ,
+            "quaternionX": quaternionX,
+            "quaternionY": quaternionY,
+            "quaternionZ": quaternionZ,
+            "quaternionW": quaternionW,
+        ]
         
         guard let result = CDVPluginResult(status: CDVCommandStatus_OK,
-                                           messageAs: json) else { return }
+                                           messageAs: data) else { return }
+        
         result.setKeepCallbackAs(true)
         commandDelegate!.send(result,
                               callbackId: callbackId)
