@@ -30,13 +30,11 @@ extension ARViewController: ARSCNViewDelegate {
         // Add the plane visualization to the scene.
         node.addChildNode(qrNode)
         detectQR(qrWorldTransform: qrNode.simdWorldTransform,
-               completionHandler: delegate!.sendDetectedQRInfo)
+                 completionHandler: delegate!.sendDetectedQRInfo)
         
         DispatchQueue.main.async {
             self.statusViewController.showMessage("Detected QR marker")
         }
-        
-        
     }
     
     func renderer(_ renderer: SCNSceneRenderer,

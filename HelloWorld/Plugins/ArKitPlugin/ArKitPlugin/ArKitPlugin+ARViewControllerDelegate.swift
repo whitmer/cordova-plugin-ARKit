@@ -18,9 +18,8 @@ extension ArKitPlugin: ARViewControllerDelegate {
     /// - Parameter transfrom: float4x4 transform matrix
     func updateNodeTransform(transfrom: simd_float4x4,
                              nodeName: String) {
-        let data = createData(from: transfrom,
-                              and: nodeName)
-        sendDataToCordova(data)
+        let data = createData(from: transfrom)
+        sendDataToCordova(data, callbackId: cameraListenerCallbackId)
     }
     
     /// Send detected QR info to JS
@@ -30,19 +29,15 @@ extension ArKitPlugin: ARViewControllerDelegate {
     ///   - vumarkGUID: text encrypted in QR
     func sendDetectedQRInfo(transfrom: simd_float4x4,
                             vumarkGUID: String) {
-        var data = createData(from: transfrom,
-                              and: arViewController.qrNodeName)
-        data["vumarkGUID"] = vumarkGUID
-        sendDataToCordova(data)
+        var data = createData(from: transfrom)
+        data["qrData"] = vumarkGUID
+        sendDataToCordova(data, callbackId: qrFoundedCallbackId)
     }
     
     // MARK: - Private
     
-    private func createData(from transfrom: simd_float4x4,
-                            and nodeName: String) -> [String : Any] {
+    private func createData(from transfrom: simd_float4x4) -> [String : Any] {
         var data: [String : Any] = [:]
-        
-        data["nodeName"] = nodeName
         
         let position = float3(transfrom.columns.3.x,
                               transfrom.columns.3.y,
@@ -64,24 +59,9 @@ extension ArKitPlugin: ARViewControllerDelegate {
     ///
     /// - Parameter data: dictionary with float4x4 transform matrix
     /// and node name
-    private func sendDataToCordova(_ data: [String : Any]) {
-        var message = """
-        {
-
-        """
-        for (key, value) in data {
-            message += """
-            
-            \(key) : \(value),
-            
-            """
-        }
-        message += """
-        
-        }
-        """
+    private func sendDataToCordova(_ data: [String : Any], callbackId: String) {
         guard let result = CDVPluginResult(status: CDVCommandStatus_OK,
-                                           messageAs: message) else { return }
+                                           messageAs: data) else { return }
         result.setKeepCallbackAs(true)
         commandDelegate!.send(result,
                               callbackId: callbackId)
@@ -90,8 +70,11 @@ extension ArKitPlugin: ARViewControllerDelegate {
     /// Save Callback ID
     ///
     /// - Parameter command: cordova invoked URL command
-    @objc private func coolMethod(_ command: CDVInvokedUrlCommand) {
-        callbackId = command.callbackId
+    @objc func setCameraListener(_ command: CDVInvokedUrlCommand) {
+        cameraListenerCallbackId = command.callbackId
     }
     
+    @objc func setOnQrFounded(_ command: CDVInvokedUrlCommand) {
+        qrFoundedCallbackId = command.callbackId
+    }
 }
