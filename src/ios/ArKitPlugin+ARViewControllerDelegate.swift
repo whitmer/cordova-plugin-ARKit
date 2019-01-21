@@ -11,49 +11,57 @@ import simd
 
 extension ArKitPlugin: ARViewControllerDelegate {
     
-    /// Update virtual camera's transform matrix
+    // MARK: - Public
+    
+    /// Update node's transform matrix
     ///
     /// - Parameter transfrom: float4x4 transform matrix
     func updateNodeTransform(transfrom: simd_float4x4,
                              nodeName: String) {
-        sendPositionAndQuaternion(transfrom: transfrom,
-                                  nodeName: nodeName)
+        let data = createData(from: transfrom)
+        sendDataToCordova(data, callbackId: cameraListenerCallbackId)
     }
     
-    /// Send virtual camera's position and quaternion to JS
+    /// Send detected QR info to JS
     ///
-    /// - Parameter transfrom: float4x4 transform matrix
-    func sendPositionAndQuaternion(transfrom: simd_float4x4,
-                                   nodeName: String) {
+    /// - Parameters:
+    ///   - transfrom: float4x4 transform matrix
+    ///   - vumarkGUID: text encrypted in QR
+    func sendDetectedQRInfo(transfrom: simd_float4x4,
+                            vumarkGUID: String) {
+        var data = createData(from: transfrom)
+        data["qrData"] = vumarkGUID
+        sendDataToCordova(data, callbackId: qrFoundedCallbackId)
+    }
+    
+    // MARK: - Private
+    
+    private func createData(from transfrom: simd_float4x4) -> [String : Any] {
+        var data: [String : Any] = [:]
+        
         let position = float3(transfrom.columns.3.x,
-                                    transfrom.columns.3.y,
-                                    transfrom.columns.3.z)
-        let positionX = position.x
-        let positionY = position.y
-        let positionZ = position.z
+                              transfrom.columns.3.y,
+                              transfrom.columns.3.z)
+        data["positionX"] = position.x
+        data["positionY"] = position.y
+        data["positionZ"] = position.z
         
         let quaternion = simd_quatf(transfrom)
-        let quaternionX = quaternion.vector.x
-        let quaternionY = quaternion.vector.y
-        let quaternionZ = quaternion.vector.z
-        let quaternionW = quaternion.vector.w
+        data["quaternionX"] = quaternion.vector.x
+        data["quaternionY"] = quaternion.vector.y
+        data["quaternionZ"] = quaternion.vector.z
+        data["quaternionW"] = quaternion.vector.w
         
-        
-        let callbackId = nodeName == "Camera" ? cameraListenerCallbackId : qrFoundedCallbackId
-        
-        let data = [
-            "positionX": positionX,
-            "positionY": positionY,
-            "positionZ": positionZ,
-            "quaternionX": quaternionX,
-            "quaternionY": quaternionY,
-            "quaternionZ": quaternionZ,
-            "quaternionW": quaternionW,
-        ]
-        
+        return data
+    }
+    
+    /// Send virtual node's position and quaternion to JS
+    ///
+    /// - Parameter data: dictionary with float4x4 transform matrix
+    /// and node name
+    private func sendDataToCordova(_ data: [String : Any], callbackId: String) {
         guard let result = CDVPluginResult(status: CDVCommandStatus_OK,
                                            messageAs: data) else { return }
-        
         result.setKeepCallbackAs(true)
         commandDelegate!.send(result,
                               callbackId: callbackId)

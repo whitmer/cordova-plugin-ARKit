@@ -26,6 +26,7 @@
         <source-file src="src/ios/ViewControllers/ARViewController/ARViewController.swift"/>
         <source-file src="src/ios/ViewControllers/ARViewController/ARViewController+ARSCNViewDelegate.swift"/>
         <source-file src="src/ios/ViewControllers/ARViewController/ARViewController+ARSessionDelegate.swift"/>
+        <source-file src="src/ios/ViewControllers/ARViewController/ARViewController+Vision.swift"/>
 
         <!-- StatusViewController -->
         <source-file src="src/ios/ViewControllers/StatusViewController/StatusViewController.swift"/>
