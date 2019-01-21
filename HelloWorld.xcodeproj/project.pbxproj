@@ -11,6 +11,7 @@
 		048367348EC04E2F9B0B2AA5 /* CDVWKWebViewUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CA90D780527846A19DCE75D9 /* CDVWKWebViewUIDelegate.m */; };
 		057DCE0A83B94B92BEC828B2 /* GCDWebServerStreamedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A621091088E2498D9A5B2002 /* GCDWebServerStreamedResponse.m */; };
 		132F49D1FB9C42189C4C3C6F /* GCDWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE71C74BB3F4D45BE2E2188 /* GCDWebServer.m */; };
+		1832C6E921F5E2FC0032C4F9 /* ARViewController+Vision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832C6E821F5E2FC0032C4F9 /* ARViewController+Vision.swift */; };
 		185E73D321E72E040082687C /* QRCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E73D221E72E040082687C /* QRCodeGenerator.swift */; };
 		18ABF9C721D4D295004624ED /* ARViewController+ARSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ABF9C621D4D295004624ED /* ARViewController+ARSessionDelegate.swift */; };
 		18ABF9C921D4D2A1004624ED /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ABF9C821D4D2A1004624ED /* StatusViewController.swift */; };
@@ -74,6 +75,7 @@
 		116032B039A34F29AA64C09E /* GCDWebServerFileRequest.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = GCDWebServerFileRequest.h; path = "cordova-plugin-ionic-webview/GCDWebServerFileRequest.h"; sourceTree = "<group>"; };
 		133378E7826E49F3A926944D /* IONAssetHandler.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = IONAssetHandler.m; path = "cordova-plugin-ionic-webview/IONAssetHandler.m"; sourceTree = "<group>"; };
 		146A306E35D34D69B0F96DDA /* GCDWebServerDataRequest.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = GCDWebServerDataRequest.h; path = "cordova-plugin-ionic-webview/GCDWebServerDataRequest.h"; sourceTree = "<group>"; };
+		1832C6E821F5E2FC0032C4F9 /* ARViewController+Vision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARViewController+Vision.swift"; sourceTree = "<group>"; };
 		185E73D221E72E040082687C /* QRCodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator.swift; sourceTree = "<group>"; };
 		18ABF9C621D4D295004624ED /* ARViewController+ARSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARViewController+ARSessionDelegate.swift"; sourceTree = "<group>"; };
 		18ABF9C821D4D2A1004624ED /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				18ABF9CA21D4D2DA004624ED /* ARViewController.swift */,
 				18ABF9C621D4D295004624ED /* ARViewController+ARSessionDelegate.swift */,
 				18ABF9D621D514FD004624ED /* ARViewController+ARSCNViewDelegate.swift */,
+				1832C6E821F5E2FC0032C4F9 /* ARViewController+Vision.swift */,
 			);
 			path = ARViewController;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				18ABF9D721D514FD004624ED /* ARViewController+ARSCNViewDelegate.swift in Sources */,
 				6F8258D0C7964645817B4558 /* GCDWebServerRequest.m in Sources */,
 				45AC195E3C5B4E23974A5A0D /* GCDWebServerResponse.m in Sources */,
+				1832C6E921F5E2FC0032C4F9 /* ARViewController+Vision.swift in Sources */,
 				4F82A76190D84063903DB404 /* GCDWebServerDataRequest.m in Sources */,
 				4A795B5E990B41C9AFBFC0F0 /* GCDWebServerFileRequest.m in Sources */,
 				18ABF9C921D4D2A1004624ED /* StatusViewController.swift in Sources */,

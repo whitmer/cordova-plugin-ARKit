@@ -8,11 +8,15 @@
 import ARKit
 import SceneKit
 import UIKit
+import Vision
 import simd
 
 @objc protocol ARViewControllerDelegate: class {
     func updateNodeTransform(transfrom: simd_float4x4,
-                              nodeName: String)
+                             nodeName: String)
+    
+    func sendDetectedQRInfo(transfrom: simd_float4x4,
+                            vumarkGUID: String)
 }
 
 class ARViewController: UIViewController {
@@ -37,6 +41,9 @@ class ARViewController: UIViewController {
     
     /// Prevents restarting the session while a restart is in progress.
     var isRestartAvailable = true
+    
+    let qrNodeName = "qrNode"
+    let cameraNodeName = "cameraNode"
     
     /// Delegate
     var delegate: ARViewControllerDelegate?
