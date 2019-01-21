@@ -5,7 +5,8 @@ import SceneKit
     // MARK: - Properties
     
     /// Callback ID
-    var callbackId: String!
+    var cameraListenerCallbackId: String!
+    var qrFoundedCallbackId: String!
     
     /// ARViewController
     var arViewController: ARViewController!
@@ -43,11 +44,17 @@ import SceneKit
     @objc func addARView(_ command: CDVInvokedUrlCommand) {
         DispatchQueue.global(qos: .utility).async {
             self.instantiateARViewController()
-            
             DispatchQueue.main.async {
                 guard let superview = self.webView.superview else { return }
                 superview.insertSubview(self.arViewController.view,
                                         belowSubview: self.webView)
+                
+                let options = command.arguments[0] as! NSMutableDictionary
+                let qrRecognitionEnabled = options.object(forKey: "qrRecognitionEnabled") as! Bool;
+                if (qrRecognitionEnabled) {
+                    let qrDataArr = options.object(forKey: "qrData") as! [String]
+                    self.setupQrRecognition(qrDataArr: qrDataArr);
+                }
             }
         }
     }
@@ -58,21 +65,20 @@ import SceneKit
         self.arViewController = nil
     }
     
-    @objc func reloadSession(_ command: CDVInvokedUrlCommand) {
+    @objc func restartArSession(_ command: CDVInvokedUrlCommand) {
         self.arViewController.restartExperience()
     }
     
-    @objc func startARSessionWithoutQRRecognition(_ command: CDVInvokedUrlCommand) {
+    func startARSessionWithoutQRRecognition(_ command: CDVInvokedUrlCommand) {
         self.arViewController.vumarkGUIDs.removeAll()
         self.arViewController.qrNode = nil
         self.arViewController.restartExperience()
     }
     
-    @objc func startARSessionWithQRRecognition(_ command: CDVInvokedUrlCommand) {
+    func setupQrRecognition(qrDataArr: [String]) {
         // Fill vumarkGUID array
-        command.arguments.forEach { argument in
-            guard let vumarkGUID = argument as? String else { return }
-            self.arViewController.vumarkGUIDs.append(vumarkGUID)
+        qrDataArr.forEach { qrData in
+            self.arViewController.vumarkGUIDs.append(qrData)
         }
         // Create QR node
         self.arViewController.qrNode = SCNNode()

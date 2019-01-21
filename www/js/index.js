@@ -3,39 +3,37 @@ var camera, scene, renderer;
 var mesh;
 const container = document.getElementById('modelContainer');
 
-function updateCamera(str) {
-  console.log(str);
-  // const arr = str.split(',').map(number => parseFloat(number));
+function updateCamera(obj) {
+  let {positionX, positionY, positionZ} = obj;
+  const posFactor = 18;
+  positionX *= posFactor; positionY *= posFactor; positionZ*= posFactor;
+  camera.position.set(positionX, positionY, positionZ);
 
-  // let [posX, posY, posZ] = arr.slice(0,3);
-  // const posFactor = 18;
-  // posX *= posFactor; posY *= posFactor; posZ*= posFactor;
-  // camera.position.set(posX, posY, posZ);
-
-  // const [quatX, quatY, quatZ, quatW] = arr.slice(3);
-  // camera.quaternion.set(quatX, quatY, quatZ, quatW);
+  const {quaternionX, quaternionY, quaternionZ, quaternionW} = obj;
+  camera.quaternion.set(quaternionX, quaternionY, quaternionZ, quaternionW);
 }
 
 function addARView() {
-  cordova.plugins.arkit.addARView();
+    cordova.plugins.arkit.startArSession({qrRecognitionEnabled: true, qrData:["MSFT000001"]});
 }
 
 function removeArView() {
-  cordova.plugins.arkit.removeARView();
+  cordova.plugins.arkit.stopArSession();
 }
 
 function reloadAr() {
+    cordova.plugins.arkit.restartArSession();
 }
 
-function qrRecongnition() {
-  cordova.plugins.arkit.startARSessionWithQRRecognition(qrContent);
-}
+//function qrRecongnition() {
+//  cordova.plugins.arkit.startARSessionWithQRRecognition(qrContent);
+//}
+//
+//function startSimpleAr() {
+//  cordova.plugins.arkit.startArSession();
+//}
 
-function startSimpleAr() {
-  cordova.plugins.arkit.startArSession();
-}
-
-var updateCameraWithTrottle = throttle(updateCamera, 1000);
+var updateCameraWithTrottle = throttle(updateCamera, 20);
 
 var app = {
     // Application Constructor
@@ -48,13 +46,13 @@ var app = {
       animate();
 
       //Set callback function
-      cordova.plugins.arkit.setListenerForArChanges('', str => updateCameraWithTrottle(str), console.error);
+      cordova.plugins.arkit.onQrFounded(obj => console.info('QR', obj));
+      cordova.plugins.arkit.onCameraUpdate(updateCameraWithTrottle);
+      // cordova.plugins.arkit.onQrFounded(str => (str));
 
       document.getElementById('addARView').addEventListener('click', addARView);
       document.getElementById('removeArView').addEventListener('click', removeArView);
-      // document.getElementById('reloadBtn').addEventListener('click', reloadAr);
-      document.getElementById('startSimpleAr').addEventListener('click', startSimpleAr);
-      document.getElementById('qrRecongnition').addEventListener('click', qrRecongnition);
+      document.getElementById('reloadBtn').addEventListener('click', reloadAr);
   }
 };
 
