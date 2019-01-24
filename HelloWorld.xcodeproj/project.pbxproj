@@ -19,6 +19,7 @@
 		18ABF9CD21D4D2F5004624ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18ABF9CC21D4D2F5004624ED /* Main.storyboard */; };
 		18ABF9D721D514FD004624ED /* ARViewController+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ABF9D621D514FD004624ED /* ARViewController+ARSCNViewDelegate.swift */; };
 		18ABF9DC21D515AD004624ED /* ArKitPlugin+ARViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ABF9DB21D515AD004624ED /* ArKitPlugin+ARViewControllerDelegate.swift */; };
+		18E7319C21F9F14600601974 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18E7319B21F9F14600601974 /* Assets.xcassets */; };
 		19EC5335EB2A473B85255713 /* GCDWebServerDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E3058BB0B4A94909F9759 /* GCDWebServerDataResponse.m */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
@@ -83,6 +84,7 @@
 		18ABF9CC21D4D2F5004624ED /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		18ABF9D621D514FD004624ED /* ARViewController+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARViewController+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
 		18ABF9DB21D515AD004624ED /* ArKitPlugin+ARViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArKitPlugin+ARViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		18E7319B21F9F14600601974 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1971BB85EE26465186FD556E /* GCDWebServerConnection.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = GCDWebServerConnection.h; path = "cordova-plugin-ionic-webview/GCDWebServerConnection.h"; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				18ABF9CC21D4D2F5004624ED /* Main.storyboard */,
+				18E7319B21F9F14600601974 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
 				6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */,
 				18ABF9CD21D4D2F5004624ED /* Main.storyboard in Resources */,
+				18E7319C21F9F14600601974 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

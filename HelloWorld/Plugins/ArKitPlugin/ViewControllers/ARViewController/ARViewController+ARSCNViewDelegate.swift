@@ -23,32 +23,46 @@ extension ARViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer,
                   didAdd node: SCNNode,
                   for anchor: ARAnchor) {
-        guard let _ = anchor as? ARImageAnchor,
-            let qrNode = self.qrNode,
+        guard let qrNode = self.qrNode,
             delegate != nil else { return }
         
-        // Add the plane visualization to the scene.
-        node.addChildNode(qrNode)
-        detectQR(qrWorldTransform: qrNode.simdWorldTransform,
-                 completionHandler: delegate!.sendDetectedQRInfo)
-        
-        DispatchQueue.main.async {
-            self.statusViewController.showMessage("Detected QR marker")
+        if let _ = anchor as? ARImageAnchor {
+            // Add the plane visualization to the scene.
+            node.addChildNode(qrNode)
+            detectQR(qrWorldTransform: qrNode.simdWorldTransform,
+                     completionHandler: delegate!.sendDetectedQRInfo)
+            DispatchQueue.main.async {
+                self.statusViewController.showMessage("Detected QR marker")
+            }
+        } else if let _ = anchor as? ARObjectAnchor {
+            // Add the plane visualization to the scene.
+            node.addChildNode(qrNode)
+            delegate!.sendDetectedQRInfo(transfrom: qrNode.simdWorldTransform,
+                                         vumarkGUID: "MSFT000001")
+            DispatchQueue.main.async {
+                self.statusViewController.showMessage("Detected Object marker \(anchor.name ?? "")")
+            }
         }
     }
     
     func renderer(_ renderer: SCNSceneRenderer,
                   didUpdate node: SCNNode,
                   for anchor: ARAnchor) {
-        guard let _ = anchor as? ARImageAnchor,
-            let qrNode = self.qrNode,
+        guard let qrNode = self.qrNode,
             delegate != nil else { return }
         
-        detectQR(qrWorldTransform: qrNode.simdWorldTransform,
-                 completionHandler: delegate!.sendDetectedQRInfo)
-        
-        DispatchQueue.main.async {
-            self.statusViewController.showMessage("Updated QR marker position")
+        if let _ = anchor as? ARImageAnchor {
+            detectQR(qrWorldTransform: qrNode.simdWorldTransform,
+                     completionHandler: delegate!.sendDetectedQRInfo)
+            DispatchQueue.main.async {
+                self.statusViewController.showMessage("Detected QR marker")
+            }
+        } else if let _ = anchor as? ARObjectAnchor {
+            delegate!.sendDetectedQRInfo(transfrom: qrNode.simdWorldTransform,
+                                         vumarkGUID: "MSFT000001")
+            DispatchQueue.main.async {
+                self.statusViewController.showMessage("Detected Object marker \(anchor.name ?? "")")
+            }
         }
     }
     

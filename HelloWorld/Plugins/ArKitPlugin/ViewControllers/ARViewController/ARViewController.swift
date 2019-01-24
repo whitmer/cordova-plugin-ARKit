@@ -103,6 +103,12 @@ class ARViewController: UIViewController {
                                                            physicalWidth: qrImagePhysicalWidth))
             }
             configuration.detectionImages = qrRefferenceImages
+            
+            guard let referenceObjects = ARReferenceObject.referenceObjects(inGroupNamed: "boiler",
+                                                                            bundle: nil) else {
+                fatalError("Missing expected asset catalog resources.")
+            }
+            configuration.detectionObjects = referenceObjects
         }
         
         // Run the view's session
