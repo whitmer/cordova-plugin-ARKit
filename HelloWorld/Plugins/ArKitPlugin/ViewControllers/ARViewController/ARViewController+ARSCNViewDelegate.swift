@@ -38,7 +38,7 @@ extension ARViewController: ARSCNViewDelegate {
             // Add the plane visualization to the scene.
             node.addChildNode(qrNode)
             delegate!.sendDetectedQRInfo(transfrom: qrNode.simdWorldTransform,
-                                         vumarkGUID: "MSFT000001")
+                                         vumarkGUID: "Boiler_01")
             DispatchQueue.main.async {
                 self.statusViewController.showMessage("Detected Object marker \(anchor.name ?? "")")
             }
@@ -59,7 +59,7 @@ extension ARViewController: ARSCNViewDelegate {
             }
         } else if let _ = anchor as? ARObjectAnchor {
             delegate!.sendDetectedQRInfo(transfrom: qrNode.simdWorldTransform,
-                                         vumarkGUID: "MSFT000001")
+                                         vumarkGUID: "Boiler_01")
             DispatchQueue.main.async {
                 self.statusViewController.showMessage("Detected Object marker \(anchor.name ?? "")")
             }
