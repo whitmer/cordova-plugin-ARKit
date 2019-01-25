@@ -49,7 +49,7 @@ class ARViewController: UIViewController {
     var delegate: ARViewControllerDelegate?
     
     open var vumarkGUIDs: [String] = []
-    open var qrImagePhysicalWidth: CGFloat = 60
+    open var qrImagePhysicalWidth: CGFloat = 0.06
     var enableImageRecognition: Bool {
         return qrImagePhysicalWidth != 0 && !vumarkGUIDs.isEmpty
     }

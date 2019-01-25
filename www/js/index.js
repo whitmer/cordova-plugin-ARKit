@@ -3,18 +3,21 @@ var camera, scene, renderer;
 var mesh;
 const container = document.getElementById('modelContainer');
 
-function updateCamera(obj) {
-  let {positionX, positionY, positionZ} = obj;
-  const posFactor = 18;
-  positionX *= posFactor; positionY *= posFactor; positionZ*= posFactor;
-  camera.position.set(positionX, positionY, positionZ);
+function updateMeshFromAr(mesh, obj) {
+  const { positionX, positionY, positionZ } = obj;
+  const { quaternionX, quaternionY, quaternionZ, quaternionW } = obj;
 
-  const {quaternionX, quaternionY, quaternionZ, quaternionW} = obj;
-  camera.quaternion.set(quaternionX, quaternionY, quaternionZ, quaternionW);
+  if (positionX === 0 && positionY === 0 && positionY === 0) {
+    // prevent initial value
+    return;
+  }
+
+  mesh.position.set(positionX, positionY, positionZ);
+  mesh.quaternion.set(quaternionX, quaternionY, quaternionZ, quaternionW);
 }
 
 function addARView() {
-    cordova.plugins.arkit.startArSession({qrRecognitionEnabled: true, qrData:["MSFT000001"]});
+    cordova.plugins.arkit.startArSession({qrRecognitionEnabled: true, qrData:["MSFT000001", "ae3f45jk3r"]});
 }
 
 function removeArView() {
@@ -25,15 +28,8 @@ function reloadAr() {
     cordova.plugins.arkit.restartArSession();
 }
 
-//function qrRecongnition() {
-//  cordova.plugins.arkit.startARSessionWithQRRecognition(qrContent);
-//}
-//
-//function startSimpleAr() {
-//  cordova.plugins.arkit.startArSession();
-//}
-
-var updateCameraWithTrottle = throttle(updateCamera, 20);
+var updateQrWithTrottle = throttle(updateMeshFromAr, 20);
+var updateCameraWithTrottle = throttle(updateMeshFromAr, 20);
 
 var app = {
     // Application Constructor
@@ -46,8 +42,11 @@ var app = {
       animate();
 
       //Set callback function
-      cordova.plugins.arkit.onQrFounded(obj => console.info('QR', obj));
-      cordova.plugins.arkit.onCameraUpdate(updateCameraWithTrottle);
+      cordova.plugins.arkit.onQrFounded(obj => {
+        console.info('QR', obj)
+        updateQrWithTrottle(mesh, obj);
+      });
+      cordova.plugins.arkit.onCameraUpdate(obj => updateCameraWithTrottle(camera, obj));
       // cordova.plugins.arkit.onQrFounded(str => (str));
 
       document.getElementById('addARView').addEventListener('click', addARView);
@@ -84,15 +83,13 @@ function throttle(func, ms) {
 }
 
 function initThreeJs() {
-  camera = new THREE.PerspectiveCamera( 70, container.clientWidth / container.clientHeight, 1, 1000 );
+  camera = new THREE.PerspectiveCamera( 75, container.clientWidth / container.clientHeight);
 
   scene = new THREE.Scene();
-  geoemtrySize = 0.3;
-	var geometry = new THREE.BoxBufferGeometry( geoemtrySize, geoemtrySize, geoemtrySize );
+  var geoemtrySize = 0.06;
+	var geometry = new THREE.PlaneGeometry( geoemtrySize, geoemtrySize, 32 );
 	var material = new THREE.MeshBasicMaterial({color: new THREE.Color( 000000 )});
-	mesh = new THREE.Mesh( geometry, material );
-    
-  mesh.position.z = -5;
+  mesh = new THREE.Mesh( geometry, material );
     
 	scene.add( mesh );
   renderer = new THREE.WebGLRenderer( { alpha: true, antialiasing: true } );
