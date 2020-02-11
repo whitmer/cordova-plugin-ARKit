@@ -24,6 +24,24 @@ extension ARViewController: ARSessionDelegate {
             statusViewController.cancelScheduledMessage(for: .trackingStateEscalation)
         }
     }
+
+        func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        NSLog("didUpdate Frame")
+        DispatchQueue.main.async {
+        }
+    }
+    
+    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+        NSLog("didAdd Anchor")
+    }
+    
+    func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+        NSLog("didUpdate Anchor")
+    }
+    
+    func session(_ session: ARSession, didRemove anchors: [ARAnchor]) {
+        NSLog("didRemove Anchor")
+    }
     
     func session(_ session: ARSession,
                  didFailWithError error: Error) {
